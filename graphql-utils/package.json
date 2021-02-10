@@ -1,0 +1,18 @@
+{
+  "name": "graphql-utils",
+  "version": "1.0.0",
+  "description": "GraphQL utilities to make working with GraphQL queries and APIs simpler.",
+  "main": "dist/index.js",
+  "contributors": [
+    "Dominik Berger (https://doemuulive-56e78.web.app/)",
+    "RaviAnand Mohabir <moravrav@gmail.com> (https://ravianand.web.app)"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublish": "npm run build"
+  },
+  "repository": "https://github.com/Jenyus-Org/graphql-utils",
+  "license": "MIT",
+  "private": false,
+  "types": "index.d.ts"
+}
