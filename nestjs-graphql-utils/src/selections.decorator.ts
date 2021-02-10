@@ -1,6 +1,6 @@
 import { createParamDecorator, ExecutionContext } from "@nestjs/common";
 import { GqlExecutionContext } from "@nestjs/graphql";
-import { FieldSelections, resolveSelections } from "@jenyus/graphql-utils";
+import { FieldSelections, resolveSelections } from "@jenyus-org/graphql-utils";
 
 export const Selections = (
   fieldSelections: string | FieldSelections[],
