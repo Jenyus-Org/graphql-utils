@@ -16,6 +16,8 @@
   "private": false,
   "types": "index.d.ts",
   "dependencies": {
-    "@jenyus/graphql-utils": "file:../graphql-utils"
+    "@jenyus/graphql-utils": "file:../graphql-utils",
+    "@nestjs/common": "^7.6.12",
+    "@nestjs/graphql": "^7.9.8"
   }
 }
