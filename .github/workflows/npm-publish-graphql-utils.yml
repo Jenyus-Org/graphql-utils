@@ -7,10 +7,6 @@ name: Deploy package to GitHub package repository
 jobs:
   publish:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-        working-directory: graphql-utils
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
@@ -21,3 +17,4 @@ jobs:
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          package: "./graphql-utils/package.json"
