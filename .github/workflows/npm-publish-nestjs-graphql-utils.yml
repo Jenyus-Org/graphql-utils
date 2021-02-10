@@ -12,12 +12,16 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 10
-          npm-registry:
-          - registry: 'https://npm.pkg.github.com'
-            scope: '@jenyus-org'
-            token: '${{ secrets.GITHUB_TOKEN }}'
       - run: npm install
         working-directory: ./nestjs-graphql-utils
+      - run: |
+          echo "registry=https://registry.npmjs.org
+          //npm.pkg.github.com/:_authToken=$NODE_AUTH_TOKEN
+          @jenyus-org:registry=https://npm.pkg.github.com
+          always-auth=true" > ~/.npmrc
+          npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ github.token }}
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
