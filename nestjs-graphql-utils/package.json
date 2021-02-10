@@ -11,7 +11,7 @@
     "build": "tsc",
     "prepare": "npm run build"
   },
-  "repository": "https://github.com/Jenyus-Org/graphql-utils",
+  "repository": "https://github.com/Jenyus-Org/graphql-utils.git",
   "license": "MIT",
   "private": false,
   "types": "index.d.ts",
@@ -23,7 +23,7 @@
     "rxjs": "^6.6.3"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://npm.pkg.github.com"
   },
   "devDependencies": {
     "typescript": "^4.1.4"
