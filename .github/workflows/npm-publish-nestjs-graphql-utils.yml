@@ -15,7 +15,7 @@ jobs:
           npm-registry:
             - registry: 'https://npm.pkg.github.com'
               scope: '@jenyus-org'
-              token: ${{ secrets.GITHUB_TOKEN }}
+              token: '${{ secrets.GITHUB_TOKEN }}'
       - run: npm install
         working-directory: ./nestjs-graphql-utils
       - uses: JS-DevTools/npm-publish@v1
