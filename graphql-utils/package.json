@@ -1,5 +1,5 @@
 {
-  "name": "@jenyus/graphql-utils",
+  "name": "@jenyus-org/graphql-utils",
   "version": "1.0.0",
   "description": "GraphQL utilities to make working with GraphQL queries and APIs simpler.",
   "main": "dist/index.js",
@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "prepublish": "npm run build"
+    "prepare": "npm run build"
   },
   "repository": "https://github.com/Jenyus-Org/graphql-utils",
   "license": "MIT",
@@ -17,5 +17,11 @@
   "types": "index.d.ts",
   "dependencies": {
     "graphql": "^15.5.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "devDependencies": {
+    "typescript": "^4.1.4"
   }
 }
