@@ -17,4 +17,5 @@ jobs:
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          package: "./graphql-utils/package.json"
+          registry: https://npm.pkg.github.com
+          package: ./graphql-utils/package.json
