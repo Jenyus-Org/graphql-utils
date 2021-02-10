@@ -1,7 +1,7 @@
 {
   "name": "@jenyus-org/nestjs-graphql-utils",
   "version": "1.0.0",
-  "description": "GraphQL utilities to make working with GraphQL queries and APIs simpler.",
+  "description": "NestJS utilities and decorators using @jenyus-org/graphql-utils under the hood.",
   "main": "dist/index.js",
   "contributors": [
     "Dominik Berger (https://doemuulive-56e78.web.app/)",
