@@ -23,6 +23,8 @@ jobs:
           NODE_AUTH_TOKEN: ${{ github.token }}
       - run: npm install
         working-directory: ./nestjs-graphql-utils
+      - run: npm test
+        working-directory: ./nestjs-graphql-utils
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
