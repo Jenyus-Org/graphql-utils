@@ -2,8 +2,8 @@ import { createParamDecorator, ExecutionContext } from "@nestjs/common";
 import { GqlExecutionContext } from "@nestjs/graphql";
 import { hasFields } from "@jenyus-org/graphql-utils";
 
-export const HasFields = (...fields: string[]) => {
-  return createParamDecorator<string[], ExecutionContext, boolean>(
+export const HasFields = (...fields: (string | string[])[]) => {
+  return createParamDecorator<(string | string[])[], ExecutionContext, boolean>(
     (search, context) => {
       const ctx = GqlExecutionContext.create(context);
       const info = ctx.getInfo();
