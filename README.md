@@ -3,10 +3,10 @@
 
 `graphql-utils` is a set of NPM packages which can be useful when designing high-performance GraphQL APIs in Javascript or Typescript.
 
-It currently consists of two packages and two utilities:
+It currently consists of two packages:
 
- - `graphql-utils`: GraphQL utility functions compatible with any implementation of GraphQL that uses the `graphql` package as a base.
- - `nestjs-graphql-utils`: Utility wrapped in NestJS `ParamDecorator`s to encourage the stateless nature of NestJS GraphQL resolvers.
+ - `graphql-utils`: GraphQL utility functions compatible with any implementation of GraphQL that uses the [`graphql`](https://github.com/graphql/graphql-js) package as a base.
+ - `nestjs-graphql-utils`: Utilities wrapped in NestJS `ParamDecorator` to encourage the stateless nature of NestJS GraphQL resolvers.
 
 ## Installation
 
