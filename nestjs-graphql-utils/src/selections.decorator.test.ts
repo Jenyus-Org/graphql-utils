@@ -1,3 +1,4 @@
+import { FieldSelections } from "@jenyus-org/graphql-utils";
 import { expect } from "chai";
 import { describe } from "mocha";
 import { getGqlExecutionContext, getParamDecoratorFactory } from "./helpers";
@@ -28,6 +29,39 @@ describe("Resolving selectors from GraphQL query fields.", () => {
       "user.firstName",
       "user.lastName",
     ];
+
+    expect(resolvedSelections).to.have.length(expectedSelections.length);
+    expect(resolvedSelections).to.have.members(expectedSelections);
+  });
+
+  it("Must resolve fields using traditional resolveSelections args.", () => {
+    const fieldSelections: FieldSelections[] = [
+      {
+        field: "user",
+        selections: [
+          {
+            field: "otherField",
+            selections: ["user.username"],
+          },
+        ],
+      },
+    ];
+
+    const ctx = getGqlExecutionContext(`{
+      user {
+        otherField {
+          moreUnrelatedFields
+          user {
+            username
+          }
+        }
+      }
+    }`);
+
+    const selections = getParamDecoratorFactory(Selections);
+
+    const resolvedSelections = selections({ fieldSelections }, ctx);
+    const expectedSelections = ["user.username"];
 
     expect(resolvedSelections).to.have.length(expectedSelections.length);
     expect(resolvedSelections).to.have.members(expectedSelections);
