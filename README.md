@@ -5,8 +5,8 @@
 
 It currently consists of two packages:
 
- - `graphql-utils`: GraphQL utility functions compatible with any implementation of GraphQL that uses the [`graphql`](https://github.com/graphql/graphql-js) package as a base.
- - `nestjs-graphql-utils`: Utilities wrapped in NestJS `ParamDecorator` to encourage the stateless nature of NestJS GraphQL resolvers.
+ - [`graphql-utils`](./graphql-utils/README.md): GraphQL utility functions compatible with any implementation of GraphQL that uses the [`graphql`](https://github.com/graphql/graphql-js) library as a base.
+ - [`nestjs-graphql-utils`](./nestjs-graphql-utils/README.md): Utilities wrapped in NestJS `ParamDecorator` to encourage the stateless nature of NestJS GraphQL resolvers.
 
 ## Installation
 
