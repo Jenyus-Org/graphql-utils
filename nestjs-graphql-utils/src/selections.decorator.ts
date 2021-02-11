@@ -3,7 +3,7 @@ import { GqlExecutionContext } from "@nestjs/graphql";
 import { FieldSelections, resolveSelections } from "@jenyus-org/graphql-utils";
 
 export const Selections = (
-  fieldSelections: string | FieldSelections[],
+  fieldSelections: string | string[] | FieldSelections[],
   fields?: string[],
   asParent: boolean = true
 ) => {
@@ -14,7 +14,10 @@ export const Selections = (
   }
 
   return createParamDecorator<
-    { fieldSelections: string | FieldSelections[]; fields?: string[] },
+    {
+      fieldSelections: string | string[] | FieldSelections[];
+      fields?: string[];
+    },
     ExecutionContext,
     string[]
   >(({ fieldSelections, fields }, context) => {
