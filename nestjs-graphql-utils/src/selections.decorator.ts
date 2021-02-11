@@ -4,7 +4,8 @@ import { FieldSelections, resolveSelections } from "@jenyus-org/graphql-utils";
 
 export const Selections = (
   fieldSelections: string | FieldSelections[],
-  fields?: string[]
+  fields?: string[],
+  asParent: boolean = true
 ) => {
   if (typeof fieldSelections === "string" && !fields) {
     throw new TypeError(
@@ -25,7 +26,15 @@ export const Selections = (
         [
           {
             field: fieldSelections,
-            selections: fields,
+            selections: asParent
+              ? fields.map((f) => ({
+                  field: f,
+                  selector: [
+                    ...fieldSelections.split("."),
+                    ...f.split("."),
+                  ].join("."),
+                }))
+              : fields,
           },
         ],
         info
