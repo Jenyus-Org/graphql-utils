@@ -1,12 +1,6 @@
 import { expect } from "chai";
-import {
-  FieldNode,
-  FragmentDefinitionNode,
-  GraphQLResolveInfo,
-  OperationDefinitionNode,
-  parse,
-} from "graphql";
 import { describe } from "mocha";
+import { getGraphQLResolveInfo } from "./helpers";
 import { FieldSelections, resolveSelections } from "./resolve-selections";
 
 describe("Resolving relationships from GraphQL query fields.", () => {
@@ -18,7 +12,7 @@ describe("Resolving relationships from GraphQL query fields.", () => {
       },
     ];
 
-    const { definitions } = parse(`{
+    const info = getGraphQLResolveInfo(`{
       projects(search: "Test") {
         id
         items {
@@ -33,33 +27,8 @@ describe("Resolving relationships from GraphQL query fields.", () => {
         }
       }
     }`);
-    const operation = definitions.find(
-      ({ kind }) => kind === "OperationDefinition"
-    );
 
-    const {
-      selectionSet: { selections },
-    } = operation as OperationDefinitionNode;
-
-    const fragments = definitions
-      .filter(({ kind }) => kind === "FragmentDefinition")
-      .reduce(
-        (result, current) => ({
-          ...result,
-          [(current as FragmentDefinitionNode).name.value]: current,
-        }),
-        {}
-      );
-
-    const info = {
-      fragments,
-      fieldNodes: selections as FieldNode[],
-    };
-
-    const relations = resolveSelections(
-      fields,
-      (info as unknown) as GraphQLResolveInfo
-    );
+    const relations = resolveSelections(fields, info);
     const expectedRelations = ["tasks", "tasks.activities", "tasks.user"];
 
     expect(relations).to.have.length(expectedRelations.length);
@@ -79,7 +48,7 @@ describe("Resolving relationships from GraphQL query fields.", () => {
       },
     ];
 
-    const { definitions } = parse(`{
+    const info = getGraphQLResolveInfo(`{
       user {
         otherField {
           moreUnrelatedFields
@@ -89,33 +58,8 @@ describe("Resolving relationships from GraphQL query fields.", () => {
         }
       }
     }`);
-    const operation = definitions.find(
-      ({ kind }) => kind === "OperationDefinition"
-    );
 
-    const {
-      selectionSet: { selections },
-    } = operation as OperationDefinitionNode;
-
-    const fragments = definitions
-      .filter(({ kind }) => kind === "FragmentDefinition")
-      .reduce(
-        (result, current) => ({
-          ...result,
-          [(current as FragmentDefinitionNode).name.value]: current,
-        }),
-        {}
-      );
-
-    const info = {
-      fragments,
-      fieldNodes: selections as FieldNode[],
-    };
-
-    const relations = resolveSelections(
-      fields,
-      (info as unknown) as GraphQLResolveInfo
-    );
+    const relations = resolveSelections(fields, info);
     const expectedRelations = ["user.username"];
 
     expect(relations).to.have.length(expectedRelations.length);
