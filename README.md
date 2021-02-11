@@ -1,8 +1,6 @@
 # graphql-utils
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Found in the `@jenyus-org` namespace.
-
 `graphql-utils` is a set of NPM packages which can be useful when designing high-performance GraphQL APIs in Javascript or Typescript.
 
 It currently consists of two packages and two utilities:
