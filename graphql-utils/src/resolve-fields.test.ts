@@ -17,9 +17,16 @@ describe("Resolving selectors from GraphQL query fields.", () => {
     }`);
 
     const deepFields = resolveFields(info);
-    console.log(deepFields);
+    const expectedFields = [
+      "user",
+      "user.otherField",
+      "user.otherField.moreUnrelatedFields",
+      "user.otherField.user",
+      "user.otherField.user.username",
+    ];
 
-    expect(deepFields).to.equal(true);
+    expect(deepFields).to.have.length(expectedFields.length);
+    expect(deepFields).to.have.members(expectedFields);
   });
 
   it("Must resolve only flat fields.", () => {
@@ -35,9 +42,10 @@ describe("Resolving selectors from GraphQL query fields.", () => {
     }`);
 
     const flatFields = resolveFields(info, false);
-    console.log(flatFields);
+    const expectedFields = ["user", "user.otherField"];
 
-    expect(flatFields).to.equal(true);
+    expect(flatFields).to.have.length(expectedFields.length);
+    expect(flatFields).to.have.members(expectedFields);
   });
 
   it("Must resolve all deeply nested fields under a specified parent.", () => {
@@ -53,9 +61,15 @@ describe("Resolving selectors from GraphQL query fields.", () => {
     }`);
 
     const userFields = resolveFields(info, true, "user");
-    console.log(userFields);
+    const expectedFields = [
+      "user.otherField",
+      "user.otherField.moreUnrelatedFields",
+      "user.otherField.user",
+      "user.otherField.user.username",
+    ];
 
-    expect(userFields).to.equal(true);
+    expect(userFields).to.have.length(expectedFields.length);
+    expect(userFields).to.have.members(expectedFields);
   });
 
   it("Must resolve only flat fields under a specified parent.", () => {
@@ -71,8 +85,9 @@ describe("Resolving selectors from GraphQL query fields.", () => {
     }`);
 
     const flatUserFields = resolveFields(info, false, "user");
-    console.log(flatUserFields);
+    const expectedFields = ["user.otherField"];
 
-    expect(flatUserFields).to.equal(true);
+    expect(flatUserFields).to.have.length(expectedFields.length);
+    expect(flatUserFields).to.have.members(expectedFields);
   });
 });
