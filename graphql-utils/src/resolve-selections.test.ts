@@ -42,7 +42,7 @@ describe("Resolving relationships from GraphQL query fields.", () => {
         selections: [
           {
             field: "otherField",
-            selections: ["user.username"],
+            selections: ["user.username", "dummyField"],
           },
         ],
       },
