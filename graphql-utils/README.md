@@ -2,6 +2,15 @@
 
 `@jenyus-org/graphql-utils` is a collection of utilities to aid in working with GraphQL projects that have the [`graphql`](https://github.com/graphql/graphql-js) library as a base.
 
+- [graphql-utils](#graphql-utils)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Utilities](#utilities)
+    - [`hasFields(search: string | string[], info: GraphQLResolveInfo): boolean`](#hasfieldssearch-string--string-info-graphqlresolveinfo-boolean)
+    - [`resolveSelections(fields: (string | FieldSelections)[], info: GraphQLResolveInfo): string[]`](#resolveselectionsfields-string--fieldselections-info-graphqlresolveinfo-string)
+      - [`interface FieldSelections`](#interface-fieldselections)
+      - [Motivation behind `resolveSelections`](#motivation-behind-resolveselections)
+
 ## Installation
 
 As laid out in the main project repo, in order to install these packages the GitHub Package registry must be added to an `.npmrc` or `.yarnrc` file. View further details [here](../README.md).
