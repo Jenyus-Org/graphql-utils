@@ -1,5 +1,6 @@
 import { GraphQLResolveInfo } from "graphql";
 import { hasFields } from "./has-fields";
+import { resolveFields } from "./resolve-fields";
 
 export interface FieldSelections {
   field: string;
@@ -11,7 +12,7 @@ export const resolveSelections = (
   fields: (string | FieldSelections)[],
   info: GraphQLResolveInfo,
   selections: string[] = [],
-  parent?: string,
+  parent?: string
 ) => {
   let resolvedSelections = [...selections];
 
@@ -29,6 +30,12 @@ export const resolveSelections = (
       }
     }
 
+    if (field === "*") {
+      return [...resolvedSelections, ...resolveFields(info, false, parent)];
+    } else if (field === "**") {
+      return [...resolvedSelections, ...resolveFields(info, true, parent)];
+    }
+
     if (parent) {
       field = [...parent.split("."), ...field.split(".")].join(".");
     }
@@ -43,7 +50,7 @@ export const resolveSelections = (
           fieldSelection.selections,
           info,
           resolvedSelections,
-          field,
+          field
         );
       }
     }
