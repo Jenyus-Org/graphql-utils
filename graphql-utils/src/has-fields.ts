@@ -54,7 +54,6 @@ const hasFieldName = (
   }
 
   if (selectionNode.name.value === search[0]) {
-    search.shift();
     const newSearch = [...search];
     newSearch.shift();
     if (selectionNode.selectionSet) {
