@@ -65,4 +65,74 @@ describe("Resolving relationships from GraphQL query fields.", () => {
     expect(relations).to.have.length(expectedRelations.length);
     expect(relations).to.have.members(expectedRelations);
   });
+
+  it("Should resolve wildcards.", () => {
+    const fields: FieldSelections[] = [
+      {
+        field: "projects",
+        selections: ["*"],
+      },
+    ];
+
+    const info = getGraphQLResolveInfo(`{
+      projects(search: "Test") {
+        id
+        items {
+          tasks {
+            activities {
+              id
+            }
+            user {
+              id
+            }
+          }
+        }
+      }
+    }`);
+
+    const relations = resolveSelections(fields, info);
+    const expectedRelations = ["projects.id", "projects.items"];
+
+    expect(relations).to.have.length(expectedRelations.length);
+    expect(relations).to.have.members(expectedRelations);
+  });
+
+  it("Should resolve deep wildcards.", () => {
+    const fields: FieldSelections[] = [
+      {
+        field: "projects",
+        selections: ["**"],
+      },
+    ];
+
+    const info = getGraphQLResolveInfo(`{
+      projects(search: "Test") {
+        id
+        items {
+          tasks {
+            activities {
+              id
+            }
+            user {
+              id
+            }
+          }
+        }
+      }
+    }`);
+
+    const relations = resolveSelections(fields, info);
+    const expectedRelations = [
+      "projects.id",
+      "projects.items",
+      "projects.items.tasks",
+      "projects.items.tasks.activities",
+      "projects.items.tasks.activities.id",
+      "projects.items.tasks.user",
+      "projects.items.tasks.user.id",
+    ];
+
+    expect(relations).to.have.length(expectedRelations.length);
+    expect(relations).to.have.members(expectedRelations);
+  });
 });
