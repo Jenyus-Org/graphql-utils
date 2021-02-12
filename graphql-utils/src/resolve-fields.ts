@@ -75,7 +75,6 @@ const resolveFieldsFromSelectionSet = (
   if (selectionNode.selectionSet) {
     for (const selection of selectionNode.selectionSet.selections) {
       if (selection.kind === "Field") {
-        console.log(selection.name.value);
         const field = [...fieldParent, selection.name.value].join(".");
         fields = [...fields, field];
         if (deep) {
