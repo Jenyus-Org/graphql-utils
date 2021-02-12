@@ -69,6 +69,8 @@ Alternatively, an array of fields may be used for better readability:
 const requestedPosts = hasFields(["user", "posts"], info);  // GraphQLResolveInfo provided by resolver function args
 ```
 
+### `resolveFields(info: Pick<GraphQLResolveInfo, "fieldNodes" | "fragments">, deep: boolean = true, parent: string | string[] = ""): string[]`
+
 ### `resolveSelections(fields: (string | FieldSelections)[], info: GraphQLResolveInfo): string[]`
 
 `resolveSelections` is an extension of `hasFields`, designed to aid in generating the most efficient SQL queries possible when using an ORM like [TypeORM](https://typeorm.io/).
