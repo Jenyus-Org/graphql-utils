@@ -91,7 +91,7 @@ describe("Resolving relationships from GraphQL query fields.", () => {
     }`);
 
     const relations = resolveSelections(fields, info);
-    const expectedRelations = ["projects.id", "projects.items"];
+    const expectedRelations = ["id", "items"];
 
     expect(relations).to.have.length(expectedRelations.length);
     expect(relations).to.have.members(expectedRelations);
@@ -123,13 +123,13 @@ describe("Resolving relationships from GraphQL query fields.", () => {
 
     const relations = resolveSelections(fields, info);
     const expectedRelations = [
-      "projects.id",
-      "projects.items",
-      "projects.items.tasks",
-      "projects.items.tasks.activities",
-      "projects.items.tasks.activities.id",
-      "projects.items.tasks.user",
-      "projects.items.tasks.user.id",
+      "id",
+      "items",
+      "items.tasks",
+      "items.tasks.activities",
+      "items.tasks.activities.id",
+      "items.tasks.user",
+      "items.tasks.user.id",
     ];
 
     expect(relations).to.have.length(expectedRelations.length);

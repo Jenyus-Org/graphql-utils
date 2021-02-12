@@ -18,8 +18,7 @@ export const resolveFields = (
           fieldNode,
           deep,
           parents.join("."),
-          fragments,
-          [fieldNode.name.value]
+          fragments
         );
         fields = [...fields, ...resolvedFields];
       }
@@ -62,8 +61,7 @@ const resolveFieldsFromSelectionSet = (
             fieldNode,
             deep,
             parents.join("."),
-            fragments,
-            [...fieldParent, fieldNode.name.value]
+            fragments
           );
           fields = [...fields, ...resolvedFields];
         }
