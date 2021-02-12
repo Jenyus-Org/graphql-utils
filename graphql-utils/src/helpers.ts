@@ -33,3 +33,7 @@ export function getGraphQLResolveInfo(query: string) {
 
   return (info as unknown) as GraphQLResolveInfo;
 }
+
+export interface FragmentDict {
+  [key: string]: FragmentDefinitionNode;
+}
