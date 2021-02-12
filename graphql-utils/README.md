@@ -7,6 +7,7 @@
   - [Usage](#usage)
   - [Utilities](#utilities)
     - [`hasFields(search: string | string[], info: GraphQLResolveInfo): boolean`](#hasfieldssearch-string--string-info-graphqlresolveinfo-boolean)
+    - [`resolveFields(info: Pick<GraphQLResolveInfo, "fieldNodes" | "fragments">, deep: boolean = true, parent: string | string[] = ""): string[]`](#resolvefieldsinfo-pickgraphqlresolveinfo-fieldnodes--fragments-deep-boolean--true-parent-string--string---string)
     - [`resolveSelections(fields: (string | FieldSelections)[], info: GraphQLResolveInfo): string[]`](#resolveselectionsfields-string--fieldselections-info-graphqlresolveinfo-string)
       - [`interface FieldSelections`](#interface-fieldselections)
       - [Motivation behind `resolveSelections`](#motivation-behind-resolveselections)

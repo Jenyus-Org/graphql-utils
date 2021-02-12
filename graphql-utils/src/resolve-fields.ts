@@ -4,10 +4,10 @@ import { FragmentDict } from "./helpers";
 export const resolveFields = (
   info: Pick<GraphQLResolveInfo, "fieldNodes" | "fragments">,
   deep: boolean = true,
-  parent: string | string[] = "",
-  fields: string[] = []
+  parent: string | string[] = ""
 ) => {
   const { fieldNodes, fragments } = info;
+  let fields: string[] = [];
 
   if (parent) {
     const parents = Array.isArray(parent) ? parent : parent.split(".");
