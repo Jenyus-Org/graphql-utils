@@ -9,6 +9,24 @@ export const resolveFields = (
 ) => {
   const { fieldNodes, fragments } = info;
 
+  if (parent) {
+    const parents = Array.isArray(parent) ? parent : parent.split(".");
+    for (const fieldNode of fieldNodes) {
+      if (fieldNode.name.value === parent) {
+        parents.shift();
+        const resolvedFields = resolveFieldsFromSelectionSet(
+          fieldNode,
+          deep,
+          parents.join("."),
+          fragments,
+          [fieldNode.name.value]
+        );
+        fields = [...fields, ...resolvedFields];
+      }
+    }
+    return fields;
+  }
+
   for (const fieldNode of fieldNodes) {
     if (!parent) {
       fields = [...fields, fieldNode.name.value];
@@ -35,12 +53,10 @@ const resolveFieldsFromSelectionSet = (
   fields: string[] = []
 ) => {
   if (parent) {
-    console.log(parent);
     const parents = Array.isArray(parent) ? parent : parent.split(".");
     for (const fieldNode of selectionNode.selectionSet.selections) {
       if (fieldNode.kind === "Field") {
         if (fieldNode.name.value === parents[0]) {
-          console.log(fieldNode);
           parents.shift();
           const resolvedFields = resolveFieldsFromSelectionSet(
             fieldNode,
