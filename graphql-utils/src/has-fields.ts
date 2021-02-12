@@ -4,10 +4,7 @@ import {
   GraphQLResolveInfo,
   SelectionSetNode,
 } from "graphql";
-
-interface FragmentDict {
-  [key: string]: FragmentDefinitionNode;
-}
+import { FragmentDict } from "./helpers";
 
 /**
  * Searches the GraphQLResolveInfo for selectors that match the search string or array, and returns `true` if found.
@@ -28,7 +25,7 @@ interface FragmentDict {
  */
 export const hasFields = (
   search: string | string[],
-  info: GraphQLResolveInfo,
+  info: Pick<GraphQLResolveInfo, "fieldNodes" | "fragments">
 ) => {
   const { fieldNodes, fragments } = info;
   const fields = Array.isArray(search) ? search : search.split(".");
@@ -50,7 +47,7 @@ export const hasFields = (
 const hasFieldName = (
   selectionNode: FieldNode | FragmentDefinitionNode,
   search: string[],
-  fragments: FragmentDict,
+  fragments: FragmentDict
 ) => {
   if (search.length === 0) {
     return true;
@@ -88,7 +85,7 @@ const hasFieldName = (
 const hasFieldSet = (
   selectionSet: SelectionSetNode,
   search: string[],
-  fragments: FragmentDict,
+  fragments: FragmentDict
 ): boolean => {
   if (search.length === 0) {
     return true;
