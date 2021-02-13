@@ -1,3 +1,4 @@
+export { getFieldMap } from "./get-field-map";
 export { hasFields } from "./has-fields";
 export { fieldMapToDot, FieldSelections } from "./helpers";
 export { resolveFieldMap } from "./resolve-field-map";
