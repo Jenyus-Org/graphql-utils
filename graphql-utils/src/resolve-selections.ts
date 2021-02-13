@@ -26,9 +26,9 @@ export const resolveSelections = (
     }
 
     if (field === "*") {
-      return [...resolvedSelections, ...resolveFields(info, parent, false)];
+      return [...resolvedSelections, ...resolveFields(info, false, parent)];
     } else if (field === "**") {
-      return [...resolvedSelections, ...resolveFields(info, parent)];
+      return [...resolvedSelections, ...resolveFields(info, true, parent)];
     }
 
     if (parent) {

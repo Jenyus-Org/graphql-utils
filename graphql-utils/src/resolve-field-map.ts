@@ -3,8 +3,8 @@ import { FieldMap, FragmentDict } from "./helpers";
 
 export const resolveFieldMap = (
   info: Pick<GraphQLResolveInfo, "fieldNodes" | "fragments">,
-  parent: string | string[] = [],
-  deep: boolean = true
+  deep: boolean = true,
+  parent: string | string[] = []
 ) => {
   const { fieldNodes, fragments } = info;
   const parents = Array.isArray(parent) ? [...parent] : parent.split(".");

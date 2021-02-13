@@ -42,7 +42,7 @@ describe("Resolving all selected fields in a GraphQL query.", () => {
       }
     }`);
 
-    const fields = resolveFieldMap(info, "user.otherField", true);
+    const fields = resolveFieldMap(info, true, "user.otherField");
 
     expect(fields).to.deep.equal({
       moreUnrelatedFields: {},
