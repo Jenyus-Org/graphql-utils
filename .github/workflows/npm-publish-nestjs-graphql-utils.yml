@@ -1,4 +1,4 @@
-name: Deploy package to GitHub package repository
+name: Deploy package to NPM and GitHub package repository
 'on':
   push:
     branches:
