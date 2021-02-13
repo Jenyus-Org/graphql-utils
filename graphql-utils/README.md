@@ -4,7 +4,7 @@
 
 ## Installation
 
-`@jenyus-org/graphql-utils` can be installed by running one of the following commands:
+`@jenyus-org/graphql-utils` can be installed from NPM by running one of the following commands:
 
 NPM:
 
