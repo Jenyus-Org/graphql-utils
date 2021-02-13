@@ -1,6 +1,6 @@
 {
   "name": "@jenyus-org/graphql-utils",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "GraphQL utilities to make working with GraphQL queries and APIs simpler.",
   "main": "dist/index.js",
   "contributors": [
