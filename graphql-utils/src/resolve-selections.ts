@@ -40,7 +40,7 @@ export const resolveSelections = (
       field = [...parent.split("."), ...field.split(".")].join(".");
     }
 
-    if (hasFields(field, info)) {
+    if (hasFields(info, field)) {
       if (selector) {
         resolvedSelections = [...resolvedSelections, selector];
       }
