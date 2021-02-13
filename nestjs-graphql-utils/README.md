@@ -124,13 +124,13 @@ Take the following example:
 ```ts
 @Query(() => UserObject, { nullable: true })
 async user(
-  @Selections("user", ["username", "firstName"]) fieldSelections: string[]
+  @Selections("user", ["posts", "profile"]) fieldSelections: string[]
 ) {
   console.log(fieldSelections);
 }
 ```
 
-If the query includes the selections `username` and `firstName`, unlike passing a similar argument structure directly to `resolveSelections`, `@Selections()` will generate the following array:
+If the query includes the selections `posts` and `profile`, unlike passing a similar argument structure directly to `resolveSelections`, `@Selections()` will generate the following array:
 
 ```ts
 ["user.posts", "user.profile"]
