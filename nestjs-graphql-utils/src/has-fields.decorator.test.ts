@@ -3,8 +3,8 @@ import { describe } from "mocha";
 import { HasFields } from "./has-fields.decorator";
 import { getGqlExecutionContext, getParamDecoratorFactory } from "./helpers";
 
-describe("Resolving selectors from GraphQL query fields.", () => {
-  it("Must work for deeply nested selectors.", () => {
+describe("Checking if a field exists.", () => {
+  it("Must work for deeply nested fields.", () => {
     const ctx = getGqlExecutionContext(`{
       user {
         username
