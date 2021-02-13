@@ -1,84 +1,75 @@
-import { GraphQLResolveInfo, SelectionSetNode } from "graphql";
-import { FieldMap } from "./helpers";
+import { GraphQLResolveInfo, SelectionNode } from "graphql";
+import { FieldMap, FragmentDict } from "./helpers";
 
 export const resolveFieldMap = (
   info: Pick<GraphQLResolveInfo, "fieldNodes" | "fragments">,
-  deep: boolean = true,
-  parent: string | string[] = []
+  parent: string | string[] = [],
+  deep: boolean = true
 ) => {
   const { fieldNodes, fragments } = info;
-  let selectionSets: SelectionSetNode[] = [];
-  const fieldMap: FieldMap = {};
   const parents = Array.isArray(parent) ? [...parent] : parent.split(".");
 
+  return resolveFieldMapRecursively([...fieldNodes], deep, parents, fragments);
+};
+
+const resolveFieldMapRecursively = (
+  selectionNodes: SelectionNode[],
+  deep: boolean,
+  parents: string[] = [],
+  fragments: FragmentDict,
+  fieldMap: FieldMap = {}
+) => {
   if (parents.length) {
-    let found = false;
-    for (const fieldNode of fieldNodes) {
-      if (fieldNode.name.value === parent[0]) {
-        parents.shift();
-        selectionSets.push(fieldNode.selectionSet);
-        found = true;
-        break;
-      }
-    }
-    if (!found) {
-      return fieldMap;
-    }
-  } else {
-    for (const fieldNode of fieldNodes) {
-      selectionSets.push(fieldNode.selectionSet);
-    }
-  }
-
-  while (parents.length) {
-    const currentSelectionSets = [...selectionSets];
-    selectionSets = [];
-
-    let found = false;
-    for (const selectionSet of currentSelectionSets) {
-      if (selectionSet.selections) {
-        for (const selection of selectionSet.selections) {
-          if (selection.kind === "Field") {
-            if (selection.name.value === parents[0]) {
-              parents.shift();
-              selectionSets.push(selection.selectionSet);
-              found = true;
-              break;
-            }
-          } else if (selection.kind === "FragmentSpread") {
-            const fragment = fragments[selection.name.value];
-            if (fragment.selectionSet) {
-              selectionSets.push(fragment.selectionSet);
-              found = true;
-            }
+    for (const selectionNode of selectionNodes) {
+      if (selectionNode.kind === "Field") {
+        if (selectionNode.name.value === parents[0]) {
+          parents.shift();
+          if (selectionNode.selectionSet) {
+            return resolveFieldMapRecursively(
+              [...selectionNode.selectionSet.selections],
+              deep,
+              parents,
+              fragments
+            );
           }
         }
-      }
-      if (found) {
-        break;
-      }
-    }
-    if (!found) {
-      return fieldMap;
-    }
-  }
-
-  let currentParent = [];
-  while (selectionSets.length) {
-    const currentSelectionSets = [...selectionSets];
-    selectionSets = [];
-
-    for (const selectionSet of currentSelectionSets) {
-      if (selectionSet.selections) {
-        for (const selection of selectionSet.selections) {
-          if (selection.kind === "Field") {
-            if (selection.selectionSet) {
-              selectionSets = [...selectionSets, selection.selectionSet];
-            }
-            fieldMap[selection.name.value] = {};
-          }
+      } else if (selectionNode.kind === "FragmentSpread") {
+        const fragment = fragments[selectionNode.name.value];
+        const res = resolveFieldMapRecursively(
+          [...fragment.selectionSet.selections],
+          deep,
+          parents,
+          fragments
+        );
+        if (res) {
+          return res;
         }
       }
+    }
+    return fieldMap;
+  }
+
+  for (const selectionNode of selectionNodes) {
+    if (selectionNode.kind === "Field") {
+      if (deep && selectionNode.selectionSet) {
+        fieldMap[selectionNode.name.value] = resolveFieldMapRecursively(
+          [...selectionNode.selectionSet.selections],
+          deep,
+          parents,
+          fragments
+        );
+      } else {
+        fieldMap[selectionNode.name.value] = {};
+      }
+    } else if (selectionNode.kind === "FragmentSpread") {
+      const fragment = fragments[selectionNode.name.value];
+      fieldMap = resolveFieldMapRecursively(
+        [...fragment.selectionSet.selections],
+        deep,
+        parents,
+        fragments,
+        fieldMap
+      );
     }
   }
 
