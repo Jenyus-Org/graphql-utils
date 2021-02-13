@@ -19,9 +19,6 @@
   "dependencies": {
     "graphql": "^15.5.0"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "devDependencies": {
     "@types/chai": "^4.2.15",
     "@types/mocha": "^8.2.0",
