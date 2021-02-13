@@ -1,11 +1,5 @@
-import {
-  FieldNode,
-  FragmentDefinitionNode,
-  GraphQLResolveInfo,
-  SelectionSetNode,
-} from "graphql";
-import { fieldMapToDot, FragmentDict } from "./helpers";
-import { resolveFieldMap } from "./resolve-field-map";
+import { GraphQLResolveInfo } from "graphql";
+import { resolveFields } from "./resolve-fields";
 
 /**
  * Searches the GraphQLResolveInfo for selectors that match the search string or array, and returns `true` if found.
@@ -30,8 +24,7 @@ export const hasFields = (
   atRoot: boolean = false
 ) => {
   const field = Array.isArray(search) ? search.join(".") : search;
-  const fieldMap = resolveFieldMap(info);
-  const fields = fieldMapToDot(fieldMap);
+  const fields = resolveFields(info);
 
   if (atRoot) {
     return fields.includes(field);
