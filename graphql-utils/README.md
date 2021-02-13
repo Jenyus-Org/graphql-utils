@@ -5,11 +5,16 @@
 - [graphql-utils](#graphql-utils)
   - [Installation](#installation)
   - [Usage](#usage)
+  - [Interfaces](#interfaces)
+    - [`FieldMap`](#fieldmap)
+    - [`FieldSelections`](#fieldselections)
   - [Utilities](#utilities)
-    - [`hasFields(search: string | string[], info: GraphQLResolveInfo): boolean`](#hasfieldssearch-string--string-info-graphqlresolveinfo-boolean)
+    - [`fieldMapToDot (fieldMap: FieldMap): string[]`](#fieldmaptodot-fieldmap-fieldmap-string)
+    - [`getFieldMap (fieldMap: FieldMap, parent: string | string[] = []): FieldMap`](#getfieldmap-fieldmap-fieldmap-parent-string--string---fieldmap)
+    - [`hasFields(info: GraphQLResolveInfo, search: string | string[], atRoot: boolean = false): boolean`](#hasfieldsinfo-graphqlresolveinfo-search-string--string-atroot-boolean--false-boolean)
+    - [`resolveFieldMap(info: Pick<GraphQLResolveInfo, "fieldNodes" | "fragments">, deep: boolean = true, parent: string | string[] = ""): FieldMap`](#resolvefieldmapinfo-pickgraphqlresolveinfo-fieldnodes--fragments-deep-boolean--true-parent-string--string---fieldmap)
     - [`resolveFields(info: Pick<GraphQLResolveInfo, "fieldNodes" | "fragments">, deep: boolean = true, parent: string | string[] = ""): string[]`](#resolvefieldsinfo-pickgraphqlresolveinfo-fieldnodes--fragments-deep-boolean--true-parent-string--string---string)
     - [`resolveSelections(fields: (string | FieldSelections)[], info: GraphQLResolveInfo): string[]`](#resolveselectionsfields-string--fieldselections-info-graphqlresolveinfo-string)
-      - [`interface FieldSelections`](#interface-fieldselections)
       - [Motivation behind `resolveSelections`](#motivation-behind-resolveselections)
 
 ## Installation
@@ -34,9 +39,64 @@ This will install `@jenyus-org/graphql-utils` and all its dependencies.
 
 All the utilities provided by `@jenyus-org/graphql-utils` are exported directly by the package with Typescript definitions. All the functions and helpers are described below.
 
+## Interfaces
+
+### `FieldMap`
+
+```ts
+interface FieldMap {
+  [key: string]: FieldMap;
+}
+```
+
+### `FieldSelections`
+
+```ts
+interface FieldSelections {
+  field: string;
+  selector?: string;
+  selections?: (string | FieldSelections)[];
+}
+```
+
 ## Utilities
 
-### `hasFields(search: string | string[], info: GraphQLResolveInfo): boolean`
+### `fieldMapToDot (fieldMap: FieldMap): string[]`
+
+Given a `FieldMap`, this utility will return the dot notations of the field selections.
+
+**Example:**
+
+```ts
+const fieldMap: FieldMap = {
+  user: {
+    tasks: {},
+    activities: {
+      task: {},
+    },
+  },
+};
+
+const dot = fieldMapToDot(fieldMap);
+console.log(dot);
+```
+
+**Output:**
+
+```ts
+[
+  "user",
+  "user.tasks",
+  "user.activities",
+  "user.activities.task",
+]
+```
+
+### `getFieldMap (fieldMap: FieldMap, parent: string | string[] = []): FieldMap`
+
+Given a `FieldMap` and the `parent` argument, this function will return a sub-selection of the field map. This is useful for optimization purposes if a `FieldMap` from the `GraphQLResolveInfo` is already available to retrieve selections and subselections using this helper.
+
+### `hasFields(info: GraphQLResolveInfo, search: string | string[], atRoot: boolean = false): boolean`
 
 Provided the `GraphQLResolveInfo` from a given query, `hasFields` will recursively scan through the field selections, including GraphQL fragments for a subselection of fields given to `search`. It supports dot notation as well as an array structure for the search.
 
@@ -67,7 +127,17 @@ Alternatively, an array of fields may be used for better readability:
 const requestedPosts = hasFields(["user", "posts"], info);  // GraphQLResolveInfo provided by resolver function args
 ```
 
+The `atRoot` parameter allows users to specify whether the utility should only check for fields at the root level, or also go deeper down the tree in order to find the fields. It is recommended to have this enabled in general, but may be useful to disable at times.
+
+### `resolveFieldMap(info: Pick<GraphQLResolveInfo, "fieldNodes" | "fragments">, deep: boolean = true, parent: string | string[] = ""): FieldMap`
+
+Given the `GraphQLResolveInfo`, this helper will return a `FieldMap` with all the nested selectors of the query.
+
+The `deep` argument allows to be specified whether it should only search through a single layer of field selections, or go further down the tree. It is evaluated after the `parent` has been found, meaning that this allows you to make targeted searches for e.g. `user.posts` field selections or the sorts.
+
 ### `resolveFields(info: Pick<GraphQLResolveInfo, "fieldNodes" | "fragments">, deep: boolean = true, parent: string | string[] = ""): string[]`
+
+Similar to `resolveFieldMap`, `resolveFields` will return either flat or deep field selections made in the query, under the specified `parent` which may be passed as a dot-notated string or array of fields. The return value will be the dot-notated field selections which are returned by the `fieldMapToDot` helper.
 
 ### `resolveSelections(fields: (string | FieldSelections)[], info: GraphQLResolveInfo): string[]`
 
@@ -128,16 +198,6 @@ As `fields` can be represented by both objects and strings, they will be handled
 If instead, a string array is passed to `fields` or `selections`, the query will be tested for the field and the results will be accumulated as such.
 
 **Note:** Whenever fields are being tested in the query, the fields higher above are prepended to the check. This means the `posts` selection will only resolve if `user.posts` is found, and not simply `posts`.
-
-#### `interface FieldSelections`
-
-```ts
-interface FieldSelections {
-  field: string;
-  selector?: string;
-  selections?: (string | FieldSelections)[];
-}
-```
 
 #### Motivation behind `resolveSelections`
 
