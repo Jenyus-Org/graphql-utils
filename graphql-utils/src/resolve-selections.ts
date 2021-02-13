@@ -31,9 +31,9 @@ export const resolveSelections = (
     }
 
     if (field === "*") {
-      return [...resolvedSelections, ...resolveFields(info, false, parent)];
+      return [...resolvedSelections, ...resolveFields(info, parent, false)];
     } else if (field === "**") {
-      return [...resolvedSelections, ...resolveFields(info, true, parent)];
+      return [...resolvedSelections, ...resolveFields(info, parent)];
     }
 
     if (parent) {

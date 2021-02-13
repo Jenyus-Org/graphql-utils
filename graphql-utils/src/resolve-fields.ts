@@ -4,8 +4,8 @@ import { resolveFieldMap } from "./resolve-field-map";
 
 export const resolveFields = (
   info: Pick<GraphQLResolveInfo, "fieldNodes" | "fragments">,
-  deep: boolean = true,
-  parent: string | string[] = []
+  parent: string | string[] = [],
+  deep: boolean = true
 ) => {
   const fieldMap = resolveFieldMap(info, parent, deep);
   return fieldMapToDot(fieldMap);

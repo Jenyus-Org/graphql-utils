@@ -41,7 +41,7 @@ describe("Resolving selectors from GraphQL query fields.", () => {
       }
     }`);
 
-    const flatFields = resolveFields(info, false, "user");
+    const flatFields = resolveFields(info, "user", false);
     const expectedFields = ["otherField"];
 
     expect(flatFields).to.have.length(expectedFields.length);
@@ -60,7 +60,7 @@ describe("Resolving selectors from GraphQL query fields.", () => {
       }
     }`);
 
-    const userFields = resolveFields(info, true, "user");
+    const userFields = resolveFields(info, "user");
     const expectedFields = [
       "otherField",
       "otherField.moreUnrelatedFields",
@@ -84,7 +84,7 @@ describe("Resolving selectors from GraphQL query fields.", () => {
       }
     }`);
 
-    const flatUserFields = resolveFields(info, false, "user");
+    const flatUserFields = resolveFields(info, "user", false);
     const expectedFields = ["otherField"];
 
     expect(flatUserFields).to.have.length(expectedFields.length);
