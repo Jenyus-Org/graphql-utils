@@ -1,7 +1,7 @@
 {
   "name": "@jenyus-org/nestjs-graphql-utils",
-  "version": "1.3.0",
-  "description": "NestJS utilities and decorators using @jenyus-org/graphql-utils under the hood.",
+  "version": "1.4.0",
+  "description": "NestJS utilities and decorators built around @jenyus-org/graphql-utils.",
   "main": "dist/index.js",
   "contributors": [
     "Dominik Berger (https://doemuulive-56e78.web.app/)",
