@@ -1,4 +1,6 @@
 # graphql-utils
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![NPM Release](https://img.shields.io/npm/v/@jenyus-org/graphql-utils)](https://www.npmjs.com/package/@jenyus-org/graphql-utils)
 
 `@jenyus-org/graphql-utils` is a collection of utilities to aid in working with GraphQL projects that have the [`graphql`](https://github.com/graphql/graphql-js) library as a base.
 
