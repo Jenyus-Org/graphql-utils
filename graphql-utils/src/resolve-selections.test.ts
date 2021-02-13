@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { describe } from "mocha";
-import { getGraphQLResolveInfo } from "./helpers";
-import { FieldSelections, resolveSelections } from "./resolve-selections";
+import { FieldSelections, getGraphQLResolveInfo } from "./helpers";
+import { resolveSelections } from "./resolve-selections";
 
 describe("Resolving relationships from GraphQL query fields.", () => {
   it("Should resolve given relations for entered fields.", () => {
@@ -42,7 +42,7 @@ describe("Resolving relationships from GraphQL query fields.", () => {
         selections: [
           {
             field: "otherField",
-            selections: ["user.username"],
+            selections: ["user.username", "dummyField"],
           },
         ],
       },
@@ -61,6 +61,76 @@ describe("Resolving relationships from GraphQL query fields.", () => {
 
     const relations = resolveSelections(fields, info);
     const expectedRelations = ["user.username"];
+
+    expect(relations).to.have.length(expectedRelations.length);
+    expect(relations).to.have.members(expectedRelations);
+  });
+
+  it("Should resolve wildcards.", () => {
+    const fields: FieldSelections[] = [
+      {
+        field: "projects",
+        selections: ["*"],
+      },
+    ];
+
+    const info = getGraphQLResolveInfo(`{
+      projects(search: "Test") {
+        id
+        items {
+          tasks {
+            activities {
+              id
+            }
+            user {
+              id
+            }
+          }
+        }
+      }
+    }`);
+
+    const relations = resolveSelections(fields, info);
+    const expectedRelations = ["id", "items"];
+
+    expect(relations).to.have.length(expectedRelations.length);
+    expect(relations).to.have.members(expectedRelations);
+  });
+
+  it("Should resolve deep wildcards.", () => {
+    const fields: FieldSelections[] = [
+      {
+        field: "projects",
+        selections: ["**"],
+      },
+    ];
+
+    const info = getGraphQLResolveInfo(`{
+      projects(search: "Test") {
+        id
+        items {
+          tasks {
+            activities {
+              id
+            }
+            user {
+              id
+            }
+          }
+        }
+      }
+    }`);
+
+    const relations = resolveSelections(fields, info);
+    const expectedRelations = [
+      "id",
+      "items",
+      "items.tasks",
+      "items.tasks.activities",
+      "items.tasks.activities.id",
+      "items.tasks.user",
+      "items.tasks.user.id",
+    ];
 
     expect(relations).to.have.length(expectedRelations.length);
     expect(relations).to.have.members(expectedRelations);

@@ -1,19 +1,17 @@
 import { GraphQLResolveInfo } from "graphql";
-import { hasFields } from "./has-fields";
-
-export interface FieldSelections {
-  field: string;
-  selector?: string;
-  selections?: (string | FieldSelections)[];
-}
+import { getFieldMap } from "./get-field-map";
+import { fieldMapToDot, FieldSelections } from "./helpers";
+import { resolveFieldMap } from "./resolve-field-map";
 
 export const resolveSelections = (
   fields: (string | FieldSelections)[],
   info: GraphQLResolveInfo,
   selections: string[] = [],
-  parent?: string,
+  parent?: string
 ) => {
   let resolvedSelections = [...selections];
+  const fieldMap = resolveFieldMap(info);
+  const resolvedFields = fieldMapToDot(fieldMap);
 
   for (const fieldSelection of fields) {
     let field: string;
@@ -29,11 +27,24 @@ export const resolveSelections = (
       }
     }
 
+    if (field === "*") {
+      const subFieldMap = getFieldMap(fieldMap, parent);
+      return [...resolvedSelections, ...Object.keys(subFieldMap)];
+    } else if (field === "**") {
+      const subFieldMap = getFieldMap(fieldMap, parent);
+      const subFields = fieldMapToDot(subFieldMap);
+      return [...resolvedSelections, ...subFields];
+    }
+
     if (parent) {
       field = [...parent.split("."), ...field.split(".")].join(".");
     }
 
-    if (hasFields(field, info)) {
+    const hasField = resolvedFields.reduce(
+      (hf, f) => hf || f.indexOf(field) !== -1,
+      false
+    );
+    if (hasField) {
       if (selector) {
         resolvedSelections = [...resolvedSelections, selector];
       }
@@ -43,7 +54,7 @@ export const resolveSelections = (
           fieldSelection.selections,
           info,
           resolvedSelections,
-          field,
+          field
         );
       }
     }
