@@ -12,7 +12,7 @@
     - [`FieldSelections`](#fieldselections)
   - [Utilities](#utilities)
     - [`fieldMapToDot (fieldMap: FieldMap): string[]`](#fieldmaptodot-fieldmap-fieldmap-string)
-    - [`getFieldMap (fieldMap: FieldMap, parent: string | string[] = []): FieldMap`](#getfieldmap-fieldmap-fieldmap-parent-string--string---fieldmap)
+    - [`getFieldMap (fieldMap: FieldMap, parent: string | string[]): FieldMap`](#getfieldmap-fieldmap-fieldmap-parent-string--string-fieldmap)
     - [`hasFields(info: GraphQLResolveInfo, search: string | string[], atRoot: boolean = false): boolean`](#hasfieldsinfo-graphqlresolveinfo-search-string--string-atroot-boolean--false-boolean)
     - [`resolveFieldMap(info: Pick<GraphQLResolveInfo, "fieldNodes" | "fragments">, deep: boolean = true, parent: string | string[] = ""): FieldMap`](#resolvefieldmapinfo-pickgraphqlresolveinfo-fieldnodes--fragments-deep-boolean--true-parent-string--string---fieldmap)
     - [`resolveFields(info: Pick<GraphQLResolveInfo, "fieldNodes" | "fragments">, deep: boolean = true, parent: string | string[] = ""): string[]`](#resolvefieldsinfo-pickgraphqlresolveinfo-fieldnodes--fragments-deep-boolean--true-parent-string--string---string)
@@ -94,7 +94,7 @@ console.log(dot);
 ]
 ```
 
-### `getFieldMap (fieldMap: FieldMap, parent: string | string[] = []): FieldMap`
+### `getFieldMap (fieldMap: FieldMap, parent: string | string[]): FieldMap`
 
 Given a `FieldMap` and the `parent` argument, this function will return a sub-selection of the field map. This is useful for optimization purposes if a `FieldMap` from the `GraphQLResolveInfo` is already available to retrieve selections and subselections using this helper.
 

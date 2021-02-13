@@ -8,7 +8,7 @@ export const HasFields = (...fields: (string | string[])[]) => {
       const ctx = GqlExecutionContext.create(context);
       const info = ctx.getInfo();
       for (const field of search) {
-        if (!hasFields(field, info)) {
+        if (!hasFields(info, field)) {
           return false;
         }
       }

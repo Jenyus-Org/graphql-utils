@@ -28,6 +28,64 @@ All the utilities provided by `@jenyus-org/nestjs-graphql-utils` are exported di
 
 ## Decorators
 
+### `@FieldMap(deep: boolean = true, parent: string | string[] = []): FieldMap`
+
+This decorator wraps the `resolveFieldMap` utility from `graphql-utils` including the direct passing of arguments fed to the decorator. It returns a raw `FieldMap` instance which takes on the form of nested objects, where the keys represent the selected fields from the `GraphQLResolveInfo`. Keys with no sub-selections are assigned an empty object as their value.
+
+**Example usage in a GraphQL resolver:**
+
+```ts
+@Query(() => UserObject, { nullable: true })
+async user(
+  @FieldMap() fieldMap: FieldMap,
+) {
+  console.log(fieldMap);
+}
+```
+
+Given the following query:
+
+```gql
+{
+  user {
+    username
+  }
+}
+```
+
+The returned `FieldMap` will be:
+
+```ts
+{
+  user: {
+    username: {},
+  }
+}
+```
+
+### `@Fields(deep: boolean = true, parent: string | string[] = []): string[]`
+
+`@Fields` is a wrapper over the `resolveFields` utility from `graphql-utils`, which itself is a light wrapper of the `resolveFieldMaps` utility that remaps the `FieldMap` return by the function with `fieldMapToDot`.
+
+Instead of returning a `FieldMap` result, it returns a `string[]` which are a list of all the requested fields in dot notation.
+
+**Example usage in a GraphQL resolver:**
+
+```ts
+@Query(() => UserObject, { nullable: true })
+async user(
+  @Fields() fields: string[],
+) {
+  console.log(fields);
+}
+```
+
+Using the same query as above, the output would be the following:
+
+```ts
+["user", "user.username"]
+```
+
 ### `@HasFields(...fields: (string | string[])[]): boolean`
 
 `@HasFields()` uses the received `GraphQLResolveInfo` from the incoming request, to run [`hasFields`](../graphql-utils/../README.md) for every argument passed. Just like `hasFields` it supports array syntax and dot notation, and uses AND bitwise operations ensuring that every field passed resolves to `true`.
