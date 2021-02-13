@@ -1,5 +1,4 @@
 import { GraphQLResolveInfo } from "graphql";
-import { hasFields } from "./has-fields";
 import { FieldSelections } from "./helpers";
 import { resolveFields } from "./resolve-fields";
 
@@ -10,6 +9,7 @@ export const resolveSelections = (
   parent?: string
 ) => {
   let resolvedSelections = [...selections];
+  const resolvedFields = resolveFields(info);
 
   for (const fieldSelection of fields) {
     let field: string;
@@ -35,7 +35,11 @@ export const resolveSelections = (
       field = [...parent.split("."), ...field.split(".")].join(".");
     }
 
-    if (hasFields(info, field)) {
+    const hasField = resolvedFields.reduce(
+      (hf, f) => hf || f.indexOf(field) !== -1,
+      false
+    );
+    if (hasField) {
       if (selector) {
         resolvedSelections = [...resolvedSelections, selector];
       }
