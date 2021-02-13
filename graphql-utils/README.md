@@ -4,9 +4,7 @@
 
 ## Installation
 
-As laid out in the main project repo, in order to install these packages the GitHub Package registry must be added to an `.npmrc` or `.yarnrc` file. View further details [here](../README.md).
-
-After the configuration file hs been setup, it's as simple as running one of the following commands:
+`@jenyus-org/graphql-utils` can be installed by running one of the following commands:
 
 NPM:
 
