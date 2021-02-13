@@ -16,7 +16,7 @@ describe("Checking if a field exists in a given query.", () => {
       }
     }`);
 
-    const usernameFound = hasFields(info, "user.username");
+    const usernameFound = hasFields(info, "user.username", false);
 
     expect(usernameFound).to.equal(true);
   });

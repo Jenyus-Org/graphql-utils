@@ -21,7 +21,7 @@ import { resolveFields } from "./resolve-fields";
 export const hasFields = (
   info: Pick<GraphQLResolveInfo, "fieldNodes" | "fragments">,
   search: string | string[],
-  atRoot: boolean = false
+  atRoot: boolean = true
 ) => {
   const field = Array.isArray(search) ? search.join(".") : search;
   const fields = resolveFields(info);
