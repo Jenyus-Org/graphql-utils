@@ -25,3 +25,4 @@ jobs:
         with:
           token: ${{ secrets.NPM_TOKEN }}
           package: ./graphql-utils/package.json
+          access: public
