@@ -1,4 +1,6 @@
 # nestjs-graphql-utils
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![NPM Release](https://img.shields.io/npm/v/@jenyus-org/nestjs-graphql-utils)](https://www.npmjs.com/package/@jenyus-org/nestjs-graphql-utils)
 
 `@jenyus-org/nestjs-graphql-utils` is a collection of utilities and decorators built on top of [`@jenyus-org/graphql-utils`](../graphql-utils/) to encourage the stateless nature of NestJS GraphQL resolvers and simplify the usage of helpers.
 
