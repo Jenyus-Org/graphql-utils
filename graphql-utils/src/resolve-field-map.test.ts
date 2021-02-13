@@ -51,4 +51,21 @@ describe("Resolving all selected fields in a GraphQL query.", () => {
       },
     });
   });
+
+  it("Must work for a flat selection fields.", () => {
+    const info = getGraphQLResolveInfo(`{
+      user {
+        otherField {
+          moreUnrelatedFields
+          user {
+            username
+          }
+        }
+      }
+    }`);
+
+    const fields = resolveFieldMap(info, false);
+
+    expect(fields).to.deep.equal({ user: {} });
+  });
 });
