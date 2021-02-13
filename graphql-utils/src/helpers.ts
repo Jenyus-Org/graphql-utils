@@ -37,3 +37,21 @@ export function getGraphQLResolveInfo(query: string) {
 export interface FragmentDict {
   [key: string]: FragmentDefinitionNode;
 }
+
+export interface FieldMap {
+  [key: string]: FieldMap;
+}
+
+export function fieldMapToDot(
+  fieldMap: FieldMap,
+  dots: string[] = [],
+  parent: string[] = []
+) {
+  for (const key of Object.keys(fieldMap)) {
+    dots = [...dots, [...parent, key].join(".")];
+    if (fieldMap[key]) {
+      dots = fieldMapToDot(fieldMap[key], dots, [...parent, key]);
+    }
+  }
+  return dots
+}
