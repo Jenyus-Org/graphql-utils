@@ -18,7 +18,7 @@ describe("Resolving all selected fields in a GraphQL query.", () => {
 
     const fields = resolveFieldMap(info);
 
-    expect(fields).to.equal({
+    expect(fields).to.deep.equal({
       user: {
         otherField: {
           moreUnrelatedFields: {},
@@ -26,6 +26,28 @@ describe("Resolving all selected fields in a GraphQL query.", () => {
             username: {},
           },
         },
+      },
+    });
+  });
+
+  it("Must work for deeply nested fields and fragments under a specified parent.", () => {
+    const info = getGraphQLResolveInfo(`{
+      user {
+        otherField {
+          moreUnrelatedFields
+          user {
+            username
+          }
+        }
+      }
+    }`);
+
+    const fields = resolveFieldMap(info, "user.otherField", true);
+
+    expect(fields).to.deep.equal({
+      moreUnrelatedFields: {},
+      user: {
+        username: {},
       },
     });
   });
