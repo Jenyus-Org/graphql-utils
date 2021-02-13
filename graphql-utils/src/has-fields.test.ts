@@ -37,4 +37,21 @@ describe("Checking if a field exists in a given query.", () => {
 
     expect(usernameFound).to.equal(false);
   });
+
+  it("Shouldn't find fields below root-level if specified.", () => {
+    const info = getGraphQLResolveInfo(`{
+      user {
+        otherField {
+          moreUnrelatedFields
+          user {
+            username
+          }
+        }
+      }
+    }`);
+
+    const usernameFound = hasFields(info, "user.username", true);
+
+    expect(usernameFound).to.equal(false);
+  });
 });
