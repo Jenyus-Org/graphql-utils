@@ -1,6 +1,7 @@
 import { GraphQLResolveInfo } from "graphql";
-import { FieldSelections } from "./helpers";
-import { resolveFields } from "./resolve-fields";
+import { getFieldMap } from "./get-field-map";
+import { fieldMapToDot, FieldSelections } from "./helpers";
+import { resolveFieldMap } from "./resolve-field-map";
 
 export const resolveSelections = (
   fields: (string | FieldSelections)[],
@@ -9,7 +10,8 @@ export const resolveSelections = (
   parent?: string
 ) => {
   let resolvedSelections = [...selections];
-  const resolvedFields = resolveFields(info);
+  const fieldMap = resolveFieldMap(info);
+  const resolvedFields = fieldMapToDot(fieldMap);
 
   for (const fieldSelection of fields) {
     let field: string;
@@ -26,9 +28,12 @@ export const resolveSelections = (
     }
 
     if (field === "*") {
-      return [...resolvedSelections, ...resolveFields(info, false, parent)];
+      const subFieldMap = getFieldMap(fieldMap, parent);
+      return [...resolvedSelections, ...Object.keys(subFieldMap)];
     } else if (field === "**") {
-      return [...resolvedSelections, ...resolveFields(info, true, parent)];
+      const subFieldMap = getFieldMap(fieldMap, parent);
+      const subFields = fieldMapToDot(subFieldMap);
+      return [...resolvedSelections, ...subFields];
     }
 
     if (parent) {
