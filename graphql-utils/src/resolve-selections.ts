@@ -1,12 +1,7 @@
 import { GraphQLResolveInfo } from "graphql";
 import { hasFields } from "./has-fields";
+import { FieldSelections } from "./helpers";
 import { resolveFields } from "./resolve-fields";
-
-export interface FieldSelections {
-  field: string;
-  selector?: string;
-  selections?: (string | FieldSelections)[];
-}
 
 export const resolveSelections = (
   fields: (string | FieldSelections)[],

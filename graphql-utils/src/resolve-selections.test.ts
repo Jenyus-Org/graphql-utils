@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { describe } from "mocha";
-import { getGraphQLResolveInfo } from "./helpers";
-import { FieldSelections, resolveSelections } from "./resolve-selections";
+import { FieldSelections, getGraphQLResolveInfo } from "./helpers";
+import { resolveSelections } from "./resolve-selections";
 
 describe("Resolving relationships from GraphQL query fields.", () => {
   it("Should resolve given relations for entered fields.", () => {

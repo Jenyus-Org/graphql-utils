@@ -6,6 +6,12 @@ import {
   parse,
 } from "graphql";
 
+export interface FieldSelections {
+  field: string;
+  selector?: string;
+  selections?: (string | FieldSelections)[];
+}
+
 export function getGraphQLResolveInfo(query: string) {
   const { definitions } = parse(query);
   const operation = definitions.find(
@@ -53,5 +59,5 @@ export function fieldMapToDot(
       dots = fieldMapToDot(fieldMap[key], dots, [...parent, key]);
     }
   }
-  return dots
+  return dots;
 }
