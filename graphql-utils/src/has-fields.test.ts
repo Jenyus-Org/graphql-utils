@@ -3,7 +3,7 @@ import { describe } from "mocha";
 import { hasFields } from "./has-fields";
 import { getGraphQLResolveInfo } from "./helpers";
 
-describe("Resolving selectors from GraphQL query fields.", () => {
+describe("Checking if a field exists in a given query.", () => {
   it("Must work for deeply nested selectors.", () => {
     const info = getGraphQLResolveInfo(`{
       user {
@@ -16,7 +16,7 @@ describe("Resolving selectors from GraphQL query fields.", () => {
       }
     }`);
 
-    const usernameFound = hasFields("user.username", info);
+    const usernameFound = hasFields(info, "user.username");
 
     expect(usernameFound).to.equal(true);
   });
@@ -33,7 +33,7 @@ describe("Resolving selectors from GraphQL query fields.", () => {
       }
     }`);
 
-    const usernameFound = hasFields("user.dummyField", info);
+    const usernameFound = hasFields(info, "user.dummyField");
 
     expect(usernameFound).to.equal(false);
   });
