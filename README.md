@@ -10,25 +10,9 @@ It currently consists of two packages:
 
 ## Installation
 
-The packages can be installed via the `npm` and Yarn package managers. As they are stored on the GitHub Package Registry, and not NPM, a `.npmrc` configuration file or `.yarnrc` respectively must be provided:
+The packages can be installed via the `npm` and Yarn package managers. It's as easy as running `npm i @jenyus-org/<package-name>` or `yarn add @jenyus-org/<package-name>`.
 
-`.npmrc`
-
-```rc
-registry=https://registry.npmjs.org
-@jenyus-org:registry=https://npm.pkg.github.com
-```
-
-`.yarnrc`
-
-```rc
-registry "https://registry.npmjs.org"
-"@jenyus-org:registry" "https://npm.pkg.github.com"
-```
-
-Once the configuration file has been set up, it's as easy as running `npm i @jenyus-org/<package-name>` or `yarn add @jenyus-org/<package-name>`.
-
-For more information see the individual package folders and their respective `README`s.
+For more information see the individual package folders and their respective READMEs.
 
 ## Roadmap
 

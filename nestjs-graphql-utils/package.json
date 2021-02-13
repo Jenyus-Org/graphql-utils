@@ -23,9 +23,6 @@
     "@nestjs/graphql": "^7.9.8",
     "rxjs": "^6.6.3"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "devDependencies": {
     "@nestjs/testing": "^7.6.12",
     "@types/chai": "^4.2.15",
