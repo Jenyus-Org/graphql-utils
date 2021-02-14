@@ -1,4 +1,5 @@
 import { GraphQLResolveInfo, SelectionNode } from "graphql";
+import { getFieldNode } from "./get-field-node";
 import { FieldMap, FragmentDict } from "./helpers";
 
 export const resolveFieldMap = (
@@ -9,53 +10,30 @@ export const resolveFieldMap = (
   const { fieldNodes, fragments } = info;
   const parents = Array.isArray(parent) ? [...parent] : parent.split(".");
 
-  return resolveFieldMapRecursively([...fieldNodes], deep, parents, fragments);
+  if (parents.length) {
+    const fieldNode = getFieldNode(info, parents);
+    return resolveFieldMapRecursively(
+      fieldNode?.selectionSet ? [...fieldNode.selectionSet.selections] : [],
+      deep,
+      fragments
+    );
+  }
+
+  return resolveFieldMapRecursively([...fieldNodes], deep, fragments);
 };
 
 const resolveFieldMapRecursively = (
   selectionNodes: SelectionNode[],
   deep: boolean,
-  parents: string[] = [],
   fragments: FragmentDict,
   fieldMap: FieldMap = {}
 ) => {
-  if (parents.length) {
-    for (const selectionNode of selectionNodes) {
-      if (selectionNode.kind === "Field") {
-        if (selectionNode.name.value === parents[0]) {
-          parents.shift();
-          if (selectionNode.selectionSet) {
-            return resolveFieldMapRecursively(
-              [...selectionNode.selectionSet.selections],
-              deep,
-              parents,
-              fragments
-            );
-          }
-        }
-      } else if (selectionNode.kind === "FragmentSpread") {
-        const fragment = fragments[selectionNode.name.value];
-        const res = resolveFieldMapRecursively(
-          [...fragment.selectionSet.selections],
-          deep,
-          parents,
-          fragments
-        );
-        if (res) {
-          return res;
-        }
-      }
-    }
-    return fieldMap;
-  }
-
   for (const selectionNode of selectionNodes) {
     if (selectionNode.kind === "Field") {
       if (deep && selectionNode.selectionSet) {
         fieldMap[selectionNode.name.value] = resolveFieldMapRecursively(
           [...selectionNode.selectionSet.selections],
           deep,
-          parents,
           fragments
         );
       } else {
@@ -66,7 +44,6 @@ const resolveFieldMapRecursively = (
       fieldMap = resolveFieldMapRecursively(
         [...fragment.selectionSet.selections],
         deep,
-        parents,
         fragments,
         fieldMap
       );
