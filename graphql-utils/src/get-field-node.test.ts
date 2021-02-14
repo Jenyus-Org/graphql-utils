@@ -9,12 +9,12 @@ describe("Retrieving field nodes from a selected path.", () => {
     const info = getGraphQLResolveInfo(`{
       user {
         profile {
+          slug
+        }
+        profile {
           img {
             src
           }
-        }
-        profile {
-          slug
         }
       }
     }`);
