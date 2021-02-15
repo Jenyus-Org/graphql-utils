@@ -34,7 +34,7 @@ This will install `@jenyus-org/nestjs-graphql-utils` and all its dependencies.
 
 ## Usage
 
-All the utilities provided by `@jenyus-org/nestjs-graphql-utils` are exported directly by the package with Typescript definitions. All the functions and decorators are described below.
+All the utilities provided by `@jenyus-org/nestjs-graphql-utils` are exported directly by the package with Typescript definitions, and are described below.
 
 ## Decorators
 
