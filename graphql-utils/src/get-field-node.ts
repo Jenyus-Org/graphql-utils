@@ -11,14 +11,13 @@ export const getFieldNode = (
   while (selectionNodes.length) {
     const currentNodes = [...selectionNodes];
     selectionNodes = [];
+
+    let field = fields[0];
+    fields.shift();
+    
     for (const selectionNode of currentNodes) {
-      let found = false;
       if (selectionNode.kind === "Field") {
-        if (selectionNode.name.value === fields[0]) {
-          if (!found) {
-            fields.shift();
-            found = true;
-          }
+        if (selectionNode.name.value === field) {
           if (!fields.length) {
             return selectionNode;
           }
