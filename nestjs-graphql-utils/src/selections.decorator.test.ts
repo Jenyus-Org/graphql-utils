@@ -4,8 +4,8 @@ import { describe } from "mocha";
 import { getGqlExecutionContext, getParamDecoratorFactory } from "./helpers";
 import { Selections } from "./selections.decorator";
 
-describe("Resolving selectors from GraphQL query fields.", () => {
-  it("Must resolve fields with the parent prepended to the selector.", () => {
+describe("Resolving selectors from GraphQL query fields", () => {
+  it("Must resolve fields with the parent prepended to the selector", () => {
     const ctx = getGqlExecutionContext(`{
       user {
         username
@@ -34,7 +34,7 @@ describe("Resolving selectors from GraphQL query fields.", () => {
     expect(resolvedSelections).to.have.members(expectedSelections);
   });
 
-  it("Must resolve fields using traditional resolveSelections args.", () => {
+  it("Must resolve fields using traditional resolveSelections args", () => {
     const fieldSelections: FieldSelections[] = [
       {
         field: "user",

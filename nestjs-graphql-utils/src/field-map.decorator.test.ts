@@ -3,8 +3,8 @@ import { describe } from "mocha";
 import { FieldMap } from "./field-map.decorator";
 import { getGqlExecutionContext, getParamDecoratorFactory } from "./helpers";
 
-describe("Retrieving a FieldMap from the GraphQLResolveInfo.", () => {
-  it("Must resolve all fields.", () => {
+describe("Retrieving a FieldMap from the GraphQLResolveInfo", () => {
+  it("Must resolve all fields", () => {
     const ctx = getGqlExecutionContext(`{
       user {
         username

@@ -4,7 +4,7 @@ import { describe } from "mocha";
 import { getFieldNode } from "./get-field-node";
 import { getGraphQLResolveInfo } from "./helpers";
 
-describe("Retrieving field nodes from a selected path.", () => {
+describe("Retrieving field nodes from a selected path", () => {
   it("Must work with multiple similar paths", () => {
     const info = getGraphQLResolveInfo(`{
       user {

@@ -2,8 +2,8 @@ import { expect } from "chai";
 import { describe } from "mocha";
 import { getFieldMap } from "./get-field-map";
 
-describe("Getting a field map within another field map.", () => {
-  it("Must retrieve the field map under the specified parent.", () => {
+describe("Getting a field map within another field map", () => {
+  it("Must retrieve the field map under the specified parent", () => {
     const fieldMap = {
       user: {
         otherField: {
