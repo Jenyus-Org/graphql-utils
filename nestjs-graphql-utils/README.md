@@ -9,6 +9,7 @@
   - [Usage](#usage)
   - [Decorators](#decorators)
     - [`@FieldMap(deep: boolean = true, parent: string | string[] = []): FieldMap`](#fieldmapdeep-boolean--true-parent-string--string---fieldmap)
+    - [`@FieldNodeAt(path: string | string[]): FieldNode | undefined`](#fieldnodeatpath-string--string-fieldnode--undefined)
     - [`@Fields(deep: boolean = true, parent: string | string[] = []): string[]`](#fieldsdeep-boolean--true-parent-string--string---string)
     - [`@HasFields(...fields: (string | string[])[]): boolean`](#hasfieldsfields-string--string-boolean)
     - [`@Selections(fieldSelections: string | string[] | FieldSelections[], fields?: string[], asParent: boolean = true): string[]`](#selectionsfieldselections-string--string--fieldselections-fields-string-asparent-boolean--true-string)
@@ -73,6 +74,12 @@ The returned `FieldMap` will be:
   }
 }
 ```
+
+### `@FieldNodeAt(path: string | string[]): FieldNode | undefined`
+
+**New in v1.5.0**
+
+`@FieldNodeAt` wraps the `getFieldNode()` utility from `graphql-utils`, which takes a path and then tries to find a field node at the specified location in the `GraphQLResolveInfo`. If none was found, `undefined` is returned instead.
 
 ### `@Fields(deep: boolean = true, parent: string | string[] = []): string[]`
 
