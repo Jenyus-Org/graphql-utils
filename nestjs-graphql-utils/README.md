@@ -4,6 +4,16 @@
 
 `@jenyus-org/nestjs-graphql-utils` is a collection of utilities and decorators built on top of [`@jenyus-org/graphql-utils`](../graphql-utils/) to encourage the stateless nature of NestJS GraphQL resolvers and simplify the usage of helpers.
 
+- [nestjs-graphql-utils](#nestjs-graphql-utils)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Decorators](#decorators)
+    - [`@FieldMap(deep: boolean = true, parent: string | string[] = []): FieldMap`](#fieldmapdeep-boolean--true-parent-string--string---fieldmap)
+    - [`@FieldNodeAt(path: string | string[]): FieldNode | undefined`](#fieldnodeatpath-string--string-fieldnode--undefined)
+    - [`@Fields(deep: boolean = true, parent: string | string[] = []): string[]`](#fieldsdeep-boolean--true-parent-string--string---string)
+    - [`@HasFields(...fields: (string | string[])[]): boolean`](#hasfieldsfields-string--string-boolean)
+    - [`@Selections(fieldSelections: string | string[] | FieldSelections[], fields?: string[], asParent: boolean = true): string[]`](#selectionsfieldselections-string--string--fieldselections-fields-string-asparent-boolean--true-string)
+
 ## Installation
 
 `@jenyus-org/nestjs-graphql-utils` can be installed from NPM by running one of the following commands:
@@ -24,11 +34,13 @@ This will install `@jenyus-org/nestjs-graphql-utils` and all its dependencies.
 
 ## Usage
 
-All the utilities provided by `@jenyus-org/nestjs-graphql-utils` are exported directly by the package with Typescript definitions. All the functions and decorators are described below.
+All the utilities provided by `@jenyus-org/nestjs-graphql-utils` are exported directly by the package with Typescript definitions, and are described below.
 
 ## Decorators
 
 ### `@FieldMap(deep: boolean = true, parent: string | string[] = []): FieldMap`
+
+**New in v1.4.0**
 
 This decorator wraps the `resolveFieldMap` utility from `graphql-utils` including the direct passing of arguments fed to the decorator. It returns a raw `FieldMap` instance which takes on the form of nested objects, where the keys represent the selected fields from the `GraphQLResolveInfo`. Keys with no sub-selections are assigned an empty object as their value.
 
@@ -63,7 +75,15 @@ The returned `FieldMap` will be:
 }
 ```
 
+### `@FieldNodeAt(path: string | string[]): FieldNode | undefined`
+
+**New in v1.5.0**
+
+`@FieldNodeAt` wraps the `getFieldNode()` utility from `graphql-utils`, which takes a path and then tries to find a field node at the specified location in the `GraphQLResolveInfo`. If none was found, `undefined` is returned instead.
+
 ### `@Fields(deep: boolean = true, parent: string | string[] = []): string[]`
+
+**New in v1.4.0**
 
 `@Fields` is a wrapper over the `resolveFields` utility from `graphql-utils`, which itself is a light wrapper of the `resolveFieldMaps` utility that remaps the `FieldMap` return by the function with `fieldMapToDot`.
 
