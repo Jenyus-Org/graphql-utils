@@ -13,6 +13,7 @@
   - [Utilities](#utilities)
     - [`fieldMapToDot (fieldMap: FieldMap): string[]`](#fieldmaptodot-fieldmap-fieldmap-string)
     - [`getFieldMap (fieldMap: FieldMap, parent: string | string[]): FieldMap`](#getfieldmap-fieldmap-fieldmap-parent-string--string-fieldmap)
+    - [`getFieldNode (info: Pick<GraphQLResolveInfo, "fieldNodes" | "fragments">, path: string | string[] = []): FieldNode | undefined`](#getfieldnode-info-pickgraphqlresolveinfo-fieldnodes--fragments-path-string--string---fieldnode--undefined)
     - [`hasFields(info: GraphQLResolveInfo, search: string | string[], atRoot: boolean = false): boolean`](#hasfieldsinfo-graphqlresolveinfo-search-string--string-atroot-boolean--false-boolean)
     - [`resolveFieldMap(info: Pick<GraphQLResolveInfo, "fieldNodes" | "fragments">, deep: boolean = true, parent: string | string[] = ""): FieldMap`](#resolvefieldmapinfo-pickgraphqlresolveinfo-fieldnodes--fragments-deep-boolean--true-parent-string--string---fieldmap)
     - [`resolveFields(info: Pick<GraphQLResolveInfo, "fieldNodes" | "fragments">, deep: boolean = true, parent: string | string[] = ""): string[]`](#resolvefieldsinfo-pickgraphqlresolveinfo-fieldnodes--fragments-deep-boolean--true-parent-string--string---string)
@@ -65,6 +66,8 @@ interface FieldSelections {
 
 ### `fieldMapToDot (fieldMap: FieldMap): string[]`
 
+**New in v1.2.0**
+
 Given a `FieldMap`, this utility will return the dot notations of the field selections.
 
 **Example:**
@@ -96,7 +99,17 @@ console.log(dot);
 
 ### `getFieldMap (fieldMap: FieldMap, parent: string | string[]): FieldMap`
 
+**New in v1.1.0**
+
 Given a `FieldMap` and the `parent` argument, this function will return a sub-selection of the field map. This is useful for optimization purposes if a `FieldMap` from the `GraphQLResolveInfo` is already available to retrieve selections and subselections using this helper.
+
+### `getFieldNode (info: Pick<GraphQLResolveInfo, "fieldNodes" | "fragments">, path: string | string[] = []): FieldNode | undefined`
+
+**New in v1.3.0**
+
+Given the `GraphQLResolveInfo`, `getFieldNode` will retrieve the `FieldNode` at a specified path. The path may be specified with dot notation or as an array of fields. If no `FieldNode` was found, `undefined` will be returned.
+
+**Note:** This function returns a raw `FieldNode` and doesn't do any remapping of fields or fragments. It's meant for internal use or more advanced users looking to hook into the GraphQL system directly.
 
 ### `hasFields(info: GraphQLResolveInfo, search: string | string[], atRoot: boolean = false): boolean`
 
@@ -133,11 +146,15 @@ The `atRoot` parameter allows users to specify whether the utility should only c
 
 ### `resolveFieldMap(info: Pick<GraphQLResolveInfo, "fieldNodes" | "fragments">, deep: boolean = true, parent: string | string[] = ""): FieldMap`
 
+**New in v1.1.0**
+
 Given the `GraphQLResolveInfo`, this helper will return a `FieldMap` with all the nested selectors of the query.
 
 The `deep` argument allows to be specified whether it should only search through a single layer of field selections, or go further down the tree. It is evaluated after the `parent` has been found, meaning that this allows you to make targeted searches for e.g. `user.posts` field selections or the sorts.
 
 ### `resolveFields(info: Pick<GraphQLResolveInfo, "fieldNodes" | "fragments">, deep: boolean = true, parent: string | string[] = ""): string[]`
+
+**New in v1.1.0**
 
 Similar to `resolveFieldMap`, `resolveFields` will return either flat or deep field selections made in the query, under the specified `parent` which may be passed as a dot-notated string or array of fields. The return value will be the dot-notated field selections which are returned by the `fieldMapToDot` helper.
 
