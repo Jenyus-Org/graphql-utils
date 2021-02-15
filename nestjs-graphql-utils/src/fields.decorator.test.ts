@@ -3,8 +3,8 @@ import { describe } from "mocha";
 import { Fields } from "./fields.decorator";
 import { getGqlExecutionContext, getParamDecoratorFactory } from "./helpers";
 
-describe("Retrieving fields from the GraphQLResolveInfo in dot notation form.", () => {
-  it("Must resolve all fields.", () => {
+describe("Retrieving fields from the GraphQLResolveInfo in dot notation form", () => {
+  it("Must resolve all fields", () => {
     const ctx = getGqlExecutionContext(`{
       user {
         username

@@ -3,8 +3,8 @@ import { describe } from "mocha";
 import { FieldSelections, getGraphQLResolveInfo } from "./helpers";
 import { resolveSelections } from "./resolve-selections";
 
-describe("Resolving relationships from GraphQL query fields.", () => {
-  it("Should resolve given relations for entered fields.", () => {
+describe("Resolving relationships from GraphQL query fields", () => {
+  it("Should resolve given relations for entered fields", () => {
     const fields: FieldSelections[] = [
       {
         field: "items",
@@ -35,7 +35,7 @@ describe("Resolving relationships from GraphQL query fields.", () => {
     expect(relations).to.have.members(expectedRelations);
   });
 
-  it("Must work for deeply nested selectors.", () => {
+  it("Must work for deeply nested selectors", () => {
     const fields: FieldSelections[] = [
       {
         field: "user",
@@ -66,7 +66,7 @@ describe("Resolving relationships from GraphQL query fields.", () => {
     expect(relations).to.have.members(expectedRelations);
   });
 
-  it("Should resolve wildcards.", () => {
+  it("Should resolve wildcards", () => {
     const fields: FieldSelections[] = [
       {
         field: "projects",
@@ -97,7 +97,7 @@ describe("Resolving relationships from GraphQL query fields.", () => {
     expect(relations).to.have.members(expectedRelations);
   });
 
-  it("Should resolve deep wildcards.", () => {
+  it("Should resolve deep wildcards", () => {
     const fields: FieldSelections[] = [
       {
         field: "projects",

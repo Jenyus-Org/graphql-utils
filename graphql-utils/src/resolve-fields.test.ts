@@ -3,8 +3,8 @@ import { describe } from "mocha";
 import { getGraphQLResolveInfo } from "./helpers";
 import { resolveFields } from "./resolve-fields";
 
-describe("Resolving selectors from GraphQL query fields.", () => {
-  it("Must resolve all deeply nested fields.", () => {
+describe("Resolving selectors from GraphQL query fields", () => {
+  it("Must resolve all deeply nested fields", () => {
     const info = getGraphQLResolveInfo(`{
       user {
         otherField {
@@ -29,7 +29,7 @@ describe("Resolving selectors from GraphQL query fields.", () => {
     expect(deepFields).to.have.members(expectedFields);
   });
 
-  it("Must resolve only flat fields.", () => {
+  it("Must resolve only flat fields", () => {
     const info = getGraphQLResolveInfo(`{
       user {
         otherField {
@@ -48,7 +48,7 @@ describe("Resolving selectors from GraphQL query fields.", () => {
     expect(flatFields).to.have.members(expectedFields);
   });
 
-  it("Must resolve all deeply nested fields under a specified parent.", () => {
+  it("Must resolve all deeply nested fields under a specified parent", () => {
     const info = getGraphQLResolveInfo(`{
       user {
         otherField {
@@ -72,7 +72,7 @@ describe("Resolving selectors from GraphQL query fields.", () => {
     expect(userFields).to.have.members(expectedFields);
   });
 
-  it("Must resolve only flat fields under a specified parent.", () => {
+  it("Must resolve only flat fields under a specified parent", () => {
     const info = getGraphQLResolveInfo(`{
       user {
         otherField {

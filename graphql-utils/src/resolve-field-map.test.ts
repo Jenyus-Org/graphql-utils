@@ -3,8 +3,8 @@ import { describe } from "mocha";
 import { getGraphQLResolveInfo } from "./helpers";
 import { resolveFieldMap } from "./resolve-field-map";
 
-describe("Resolving all selected fields in a GraphQL query.", () => {
-  it("Must work for deeply nested fields and fragments.", () => {
+describe("Resolving all selected fields in a GraphQL query", () => {
+  it("Must work for deeply nested fields and fragments", () => {
     const info = getGraphQLResolveInfo(`{
       user {
         otherField {
@@ -30,7 +30,7 @@ describe("Resolving all selected fields in a GraphQL query.", () => {
     });
   });
 
-  it("Must work for deeply nested fields and fragments under a specified parent.", () => {
+  it("Must work for deeply nested fields and fragments under a specified parent", () => {
     const info = getGraphQLResolveInfo(`{
       user {
         otherField {
@@ -52,7 +52,7 @@ describe("Resolving all selected fields in a GraphQL query.", () => {
     });
   });
 
-  it("Must work for a flat selection fields.", () => {
+  it("Must work for a flat selection fields", () => {
     const info = getGraphQLResolveInfo(`{
       user {
         otherField {

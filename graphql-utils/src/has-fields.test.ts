@@ -3,8 +3,8 @@ import { describe } from "mocha";
 import { hasFields } from "./has-fields";
 import { getGraphQLResolveInfo } from "./helpers";
 
-describe("Checking if a field exists in a given query.", () => {
-  it("Must work for deeply nested selectors.", () => {
+describe("Checking if a field exists in a given query", () => {
+  it("Must work for deeply nested selectors", () => {
     const info = getGraphQLResolveInfo(`{
       user {
         otherField {
@@ -21,7 +21,7 @@ describe("Checking if a field exists in a given query.", () => {
     expect(usernameFound).to.equal(true);
   });
 
-  it("Shouldn't find fields that don't exist.", () => {
+  it("Shouldn't find fields that don't exist", () => {
     const info = getGraphQLResolveInfo(`{
       user {
         otherField {
@@ -38,7 +38,7 @@ describe("Checking if a field exists in a given query.", () => {
     expect(usernameFound).to.equal(false);
   });
 
-  it("Shouldn't find fields below root-level if specified.", () => {
+  it("Shouldn't find fields below root-level if specified", () => {
     const info = getGraphQLResolveInfo(`{
       user {
         otherField {
