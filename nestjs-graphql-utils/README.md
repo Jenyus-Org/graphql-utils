@@ -133,6 +133,8 @@ Given the following query, `true` will be printed to the console:
 
 ### `@Selections(fieldSelections: string | string[] | FieldSelections[], fields?: string[], asParent: boolean = true): string[]`
 
+**Updated in v1.5.1**
+
 Similar to `@HasFields()`, `@Selections` acts as a layer on top of [`resolveSelections`](../graphql-utils/README.md), and additionally contains some logic to solve the most common use-case.
 
 `fieldSelections` can be the same type of argument as accepted by `resolveSelections`, and will return an array of selectors which were found in the query.
@@ -150,18 +152,25 @@ async user(
 }
 ```
 
-If the query includes the selections `posts` and `profile`, unlike passing a similar argument structure directly to `resolveSelections`, `@Selections()` will generate the following array:
-
-```ts
-["user.posts", "user.profile"]
-```
-
-**Note:** Internally `@Selections` will remap the `fields` array to the fields, prepended by the parent, similar to what is shown in the README of `graphql-utils`.
-
-To disable the behavior of remapping, and simply use the `fields` array as-is, a third argument `asParent`, which defaults to `true`, can be passed as `false`. Resulting in the following output:
+If the query includes the selections `posts` and `profile`, `@Selections()` will generate the following array:
 
 ```ts
 ["posts", "profile"]
 ```
 
-This will continue to ensure that `posts` and `profile` was found within a `user` selector, but avoid remapping their selectors.
+A final argument that may be specified, `withParent`, allows `@Selections()` to automatically remap the fields specified in the second argument and prepend them with the parent. This can be useful to do more fine-grained checks, especially when searching for subselection of relationships like so:
+
+```ts
+@Query(() => UserObject, { nullable: true })
+async user(
+  @Selections("posts", ["comments"], true) postsSelections: string[]
+) {
+  console.log(postsSelections);
+}
+```
+
+This will generate the following output, if the selection `user.posts.comments` is made in the query:
+
+```ts
+["posts.comments"]
+```
