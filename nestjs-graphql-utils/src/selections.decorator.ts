@@ -5,7 +5,7 @@ import { FieldSelections, resolveSelections } from "@jenyus-org/graphql-utils";
 export const Selections = (
   fieldSelections: string | string[] | FieldSelections[],
   fields?: string[],
-  asParent: boolean = true
+  withParent: boolean = false
 ) => {
   if (typeof fieldSelections === "string" && !fields) {
     throw new TypeError(
@@ -17,10 +17,11 @@ export const Selections = (
     {
       fieldSelections: string | string[] | FieldSelections[];
       fields?: string[];
+      withParent: boolean;
     },
     ExecutionContext,
     string[]
-  >(({ fieldSelections, fields }, context) => {
+  >(({ fieldSelections, fields, withParent }, context) => {
     const ctx = GqlExecutionContext.create(context);
     const info = ctx.getInfo();
 
@@ -29,7 +30,7 @@ export const Selections = (
         [
           {
             field: fieldSelections,
-            selections: asParent
+            selections: withParent
               ? fields.map((f) => ({
                   field: f,
                   selector: [
@@ -45,5 +46,5 @@ export const Selections = (
     } else {
       return resolveSelections(fieldSelections, info);
     }
-  })({ fieldSelections, fields });
+  })({ fieldSelections, fields, withParent });
 };
