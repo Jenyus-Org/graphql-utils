@@ -1,11 +1,17 @@
 {
   "name": "@jenyus-org/graphql-utils",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "GraphQL utilities to make working with GraphQL queries and APIs simpler.",
   "main": "dist/index.js",
   "contributors": [
     "Dominik Berger (https://doemuulive-56e78.web.app/)",
     "RaviAnand Mohabir <moravrav@gmail.com> (https://ravianand.web.app)"
+  ],
+  "keywords": [
+    "typescript",
+    "graphql",
+    "graphql-utils",
+    "ast"
   ],
   "scripts": {
     "build": "tsc",

@@ -1,11 +1,18 @@
 {
   "name": "@jenyus-org/nestjs-graphql-utils",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "NestJS utilities and decorators built around @jenyus-org/graphql-utils.",
   "main": "dist/index.js",
   "contributors": [
     "Dominik Berger (https://doemuulive-56e78.web.app/)",
     "RaviAnand Mohabir <moravrav@gmail.com> (https://ravianand.web.app)"
+  ],
+  "keywords": [
+    "typescript",
+    "graphql",
+    "graphql-utils",
+    "ast",
+    "nestjs"
   ],
   "scripts": {
     "build": "tsc",
