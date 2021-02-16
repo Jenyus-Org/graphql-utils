@@ -133,7 +133,7 @@ Given the following query, `true` will be printed to the console:
 
 ### `@Selections(fieldSelections: string | string[] | FieldSelections[], fields?: string[], asParent: boolean = true): string[]`
 
-**Updated in v1.5.1**
+**Updated in v1.6.0**
 
 Similar to `@HasFields()`, `@Selections` acts as a layer on top of [`resolveSelections`](../graphql-utils/README.md), and additionally contains some logic to solve the most common use-case.
 
