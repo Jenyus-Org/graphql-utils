@@ -1,7 +1,8 @@
 # nestjs-graphql-utils
+
 ![License: MIT](https://img.shields.io/github/license/Jenyus-Org/graphql-utils)
 [![NPM Release](https://img.shields.io/npm/v/@jenyus-org/nestjs-graphql-utils)](https://www.npmjs.com/package/@jenyus-org/nestjs-graphql-utils)
-[![NPM Downloads](https://img.shields.io/npm/dw/nestjs-graphql-utils)](https://www.npmjs.com/package/@jenyus-org/nestjs-graphql-utils)
+[![NPM Downloads](https://img.shields.io/npm/dw/@jenyus-org/nestjs-graphql-utils)](https://www.npmjs.com/package/@jenyus-org/nestjs-graphql-utils)
 [![NPM Type Definitions](https://img.shields.io/npm/types/@jenyus-org/graphql-utils)](https://www.npmjs.com/package/@jenyus-org/nestjs-graphql-utils)
 
 `@jenyus-org/nestjs-graphql-utils` is a collection of utilities and decorators built on top of [`@jenyus-org/graphql-utils`](../graphql-utils/) to encourage the stateless nature of NestJS GraphQL resolvers and simplify the usage of helpers.
@@ -105,7 +106,7 @@ async user(
 Using the same query as above, the output would be the following:
 
 ```ts
-["user", "user.username"]
+["user", "user.username"];
 ```
 
 ### `@HasFields(...fields: (string | string[])[]): boolean`
@@ -157,7 +158,7 @@ async user(
 If the query includes the selections `posts` and `profile`, `@Selections()` will generate the following array:
 
 ```ts
-["posts", "profile"]
+["posts", "profile"];
 ```
 
 A final argument that may be specified, `withParent`, allows `@Selections()` to automatically remap the fields specified in the second argument and prepend them with the parent. This can be useful to do more fine-grained checks, especially when searching for subselection of relationships like so:
@@ -174,5 +175,5 @@ async user(
 This will generate the following output, if the selection `user.posts.comments` is made in the query:
 
 ```ts
-["posts.comments"]
+["posts.comments"];
 ```
