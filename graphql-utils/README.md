@@ -1,5 +1,5 @@
 # graphql-utils
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![License: MIT](https://img.shields.io/github/license/Jenyus-Org/graphql-utils)
 [![NPM Release](https://img.shields.io/npm/v/@jenyus-org/graphql-utils)](https://www.npmjs.com/package/@jenyus-org/graphql-utils)
 [![NPM Downloads](https://img.shields.io/npm/dw/graphql-utils)](https://www.npmjs.com/package/@jenyus-org/graphql-utils)
 [![NPM Type Definitions](https://img.shields.io/npm/types/@jenyus-org/graphql-utils)](https://www.npmjs.com/package/@jenyus-org/graphql-utils)

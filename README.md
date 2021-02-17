@@ -1,5 +1,9 @@
 # graphql-utils
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![License: MIT](https://img.shields.io/github/license/Jenyus-Org/graphql-utils)
+![GitHub Checks](https://img.shields.io/github/workflow/status/Jenyus-Org/graphql-utils/Deploy%20package%20to%20NPM%20and%20GitHub%20package%20repository)
+![GitHub Issues](https://img.shields.io/github/issues/Jenyus-Org/graphql-utils)
+![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Jenyus-Org/graphql-utils)
+![GitHub Stars](https://img.shields.io/github/stars/Jenyus-Org/graphql-utils?style=social)
 
 `graphql-utils` is a set of NPM packages with utilities for GraphQL.js based projects to aid in implementing complex APIs and working with the GraphQL AST.
 
