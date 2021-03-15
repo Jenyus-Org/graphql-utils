@@ -2,13 +2,13 @@
 module.exports = {
   title: "GraphQL-Utils",
   tagline: "Supercharge your GraphQL APIs.",
-  url: "https://jenyus-org.github.io/graphql-utils",
+  url: "https://jenyus-org.github.io",
   baseUrl: "/graphql-utils/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
   organizationName: "jenyus-org", // Usually your GitHub org/user name.
-  projectName: "graphql-utils", // Usually your repo name.
+  projectName: "jenyus-org.github.io", // Usually your repo name.
   themeConfig: {
     navbar: {
       title: "GraphQL-Utils",
