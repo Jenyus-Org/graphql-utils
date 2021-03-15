@@ -1,6 +1,8 @@
 module.exports = {
-  someSidebar: {
-    Docusaurus: ['doc1', 'doc2', 'doc3'],
-    Features: ['mdx'],
+  docsSidebar: {
+    Introduction: ["doc1"],
+    Utilities: ["doc2"],
+    Reference: ["doc3"],
+    "Usage with NestJS": ["mdx"],
   },
 };
