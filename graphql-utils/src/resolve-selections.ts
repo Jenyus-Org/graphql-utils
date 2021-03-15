@@ -29,11 +29,36 @@ export const resolveSelections = (
 
     if (field === "*") {
       const subFieldMap = getFieldMap(fieldMap, parent);
-      return [...resolvedSelections, ...Object.keys(subFieldMap)];
-    } else if (field === "**") {
+      resolvedSelections = [...resolvedSelections, ...Object.keys(subFieldMap)];
+    } else if (field === "*.*") {
       const subFieldMap = getFieldMap(fieldMap, parent);
       const subFields = fieldMapToDot(subFieldMap);
-      return [...resolvedSelections, ...subFields];
+      resolvedSelections = [...resolvedSelections, ...subFields];
+    } else if (field === "**") {
+      const subFieldMap = getFieldMap(fieldMap, parent);
+      const objectSelections = Object.entries(subFieldMap)
+        .filter(([_, fieldMap]) => !!Object.keys(fieldMap).length)
+        .map(([key]) => key);
+      resolvedSelections = [...resolvedSelections, ...objectSelections];
+    } else if (field === "*.") {
+      const subFieldMap = getFieldMap(fieldMap, parent);
+      const objectSelections = Object.entries(subFieldMap)
+        .filter(([_, fieldMap]) => !Object.keys(fieldMap).length)
+        .map(([key]) => key);
+      resolvedSelections = [...resolvedSelections, ...objectSelections];
+    } else if (field === "**.**") {
+      const subFieldMap = getFieldMap(fieldMap, parent);
+      const subFields = fieldMapToDot(subFieldMap);
+      const deepObjectsSelections = subFields.filter((subField) =>
+        subFields.reduce(
+          (hasSubselections, curr) =>
+            hasSubselections ||
+            (curr.startsWith(subField) &&
+              curr.split(".").length > subField.split(".").length),
+          false
+        )
+      );
+      resolvedSelections = [...resolvedSelections, ...deepObjectsSelections];
     }
 
     if (parent) {

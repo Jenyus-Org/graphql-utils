@@ -101,7 +101,7 @@ describe("Resolving relationships from GraphQL query fields", () => {
     const fields: FieldSelections[] = [
       {
         field: "projects",
-        selections: ["**"],
+        selections: ["*.*"],
       },
     ];
 
@@ -130,6 +130,134 @@ describe("Resolving relationships from GraphQL query fields", () => {
       "items.tasks.activities.id",
       "items.tasks.user",
       "items.tasks.user.id",
+    ];
+
+    expect(relations).to.have.length(expectedRelations.length);
+    expect(relations).to.have.members(expectedRelations);
+  });
+
+  it("Should resolve wildcards for fields with subselections", () => {
+    const fields: FieldSelections[] = [
+      {
+        field: "projects",
+        selections: ["**"],
+      },
+    ];
+
+    const info = getGraphQLResolveInfo(`{
+      projects(search: "Test") {
+        id
+        items {
+          tasks {
+            activities {
+              id
+            }
+            user {
+              id
+            }
+          }
+        }
+      }
+    }`);
+
+    const relations = resolveSelections(fields, info);
+    const expectedRelations = ["items"];
+
+    expect(relations).to.have.length(expectedRelations.length);
+    expect(relations).to.have.members(expectedRelations);
+  });
+
+  it("Should resolve wildcards for fields with subselections", () => {
+    const fields: FieldSelections[] = [
+      {
+        field: "projects.items.tasks",
+        selections: ["**"],
+      },
+    ];
+
+    const info = getGraphQLResolveInfo(`{
+      projects(search: "Test") {
+        id
+        items {
+          tasks {
+            activities {
+              id
+            }
+            user {
+              id
+            }
+          }
+        }
+      }
+    }`);
+
+    const relations = resolveSelections(fields, info);
+    const expectedRelations = ["activities", "user"];
+
+    expect(relations).to.have.length(expectedRelations.length);
+    expect(relations).to.have.members(expectedRelations);
+  });
+
+  it("Should resolve wildcards for fields without subselections", () => {
+    const fields: FieldSelections[] = [
+      {
+        field: "projects",
+        selections: ["*."],
+      },
+    ];
+
+    const info = getGraphQLResolveInfo(`{
+      projects(search: "Test") {
+        id
+        items {
+          tasks {
+            activities {
+              id
+            }
+            user {
+              id
+            }
+          }
+        }
+      }
+    }`);
+
+    const relations = resolveSelections(fields, info);
+    const expectedRelations = ["id"];
+
+    expect(relations).to.have.length(expectedRelations.length);
+    expect(relations).to.have.members(expectedRelations);
+  });
+  it("Should resolve wildcards for deep fields with subselections", () => {
+    const fields: FieldSelections[] = [
+      {
+        field: "projects",
+        selections: ["**.**"],
+      },
+    ];
+
+    const info = getGraphQLResolveInfo(`{
+      projects(search: "Test") {
+        id
+        items {
+          tasks {
+            activities {
+              id
+            }
+            user {
+              id
+            }
+          }
+        }
+      }
+    }`);
+
+    const relations = resolveSelections(fields, info);
+    const expectedRelations = [
+      "items",
+      "items.tasks",
+      "items.tasks.activities",
+      "items.tasks.user",
     ];
 
     expect(relations).to.have.length(expectedRelations.length);
