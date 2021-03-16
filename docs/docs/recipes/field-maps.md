@@ -202,8 +202,62 @@ This will output the following field map:
 
 ## Usage with KnexJS
 
-🚧 Work in Progress!
+Using deep field maps, we can check for fields that don't have any subselections, and assume they are database columns. Using KnexJS we can build dynamic SQL `SELECT` statements this way:
+
+```ts
+import { resolveFieldMap } from "@jenyus-org/graphql-utils";
+
+const resolvers = {
+  Query: {
+    posts(_, { db }, ___, info) {
+      const fieldMap = resolveFieldMap(info);
+      const columns = Object.entries(fieldMap.posts)
+        // check if field doesn't have subselections
+        .filter(([_, selections]) => !Object.keys(selections).length)
+        .map(([key]) => key);
+
+      return db.select(...columns).from("posts");
+    },
+  },
+};
+```
 
 ## Usage with MikroORM
 
-🚧 Work in Progress!
+Similar to how we did dynamic field selections with KnexJS, we can use MikroORM's entity repository `fields` and `populate` options to not only dynamically `SELECT` specific columns, but also pre-populated relational fields using SQL `JOIN`s if we assume fields with subselections are relations in our MikroORM entities:
+
+```ts
+import { resolveFieldMap } from "@jenyus-org/graphql-utils";
+
+const resolvers = {
+  Query: {
+    posts(_, { postsRepository }, ___, info) {
+      const fieldMap = resolveFieldMap(info);
+
+      const fields = Object.entries(fieldMap.posts)
+        // check if field doesn't have subselections
+        .filter(([_, selections]) => !Object.keys(selections).length)
+        .map(([key]) => key);
+
+      const relations = Object.entries(fieldMap.posts)
+        // check if field has subselections
+        .filter(([_, selections]) => !!Object.keys(selections).length)
+        .map(([key]) => key);
+
+      return postsRepository.find({}, { populate: relations, fields });
+    },
+  },
+  Post: {
+    // fallback field resolver
+    author(post, { usersRepository }) {
+      if (post.author) {
+        // author was already fetched in query with KnexJS
+        return post.author;
+      }
+
+      // we still need to fetch the author from the DB
+      return usersRepository.findOne({ id: post.authorId });
+    },
+  },
+};
+```
