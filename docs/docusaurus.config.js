@@ -9,6 +9,8 @@ module.exports = {
   favicon: "img/favicon.ico",
   organizationName: "jenyus-org", // Usually your GitHub org/user name.
   projectName: "graphql-utils", // Usually your repo name.
+
+  plugins: ["@docusaurus/plugin-google-analytics"],
   themeConfig: {
     navbar: {
       title: "GraphQL-Utils",
@@ -66,6 +68,11 @@ module.exports = {
         },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Jenyus Org. Built with Docusaurus.`,
+    },
+    googleAnalytics: {
+      trackingID: "G-SGKJKYGQ0E",
+      // Optional fields.
+      anonymizeIP: true, // Should IPs be anonymized?
     },
   },
   presets: [
