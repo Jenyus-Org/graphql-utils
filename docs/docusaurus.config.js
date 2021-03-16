@@ -43,11 +43,11 @@ module.exports = {
             },
             {
               label: "Utilities",
-              to: "docs/resolve-field-map/",
+              to: "docs/utilities/retrieve-field-map/",
             },
             {
               label: "Reference",
-              to: "docs/field-map/",
+              to: "docs/reference/field-map/",
             },
             {
               label: "NestJS",
