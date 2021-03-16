@@ -76,8 +76,8 @@ console.log(fields);
 
 Our output will be as follows:
 
-```ts
-["id", "title", "body"];
+```json
+["id", "title", "body"]
 ```
 
 ### Flat
@@ -121,8 +121,8 @@ console.log(fields);
 
 Our output will be as follows:
 
-```ts
-["id", "title", "body", "author"];
+```json
+["id", "title", "body", "author"]
 ```
 
 Since `author` isn't per se a field we can just `SELECT` from our database, it might make more sense to use the deep field map to filter out fields with subselections as we showed above.
