@@ -119,7 +119,3 @@ const resolvers = {
   },
 };
 ```
-
-## Usage with MikroORM
-
-🚧 Work in Progress!
