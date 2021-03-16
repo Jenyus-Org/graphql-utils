@@ -82,7 +82,7 @@ Our output will be as follows:
 
 ### Flat
 
-We can also resolve a flat field map, if we only want to use it to e.g. optimize SQL queries. The flat field map will be able to tell us which columns we need to select, which can be used in combination with a query builder like KnexJS or ORMs like MikroORM to make more efficient calls to our database.
+We can also resolve a flat field map, if we only want to use it to e.g. optimize SQL queries. The flat field map will be able to tell us which columns we need to `SELECT`, which can be used in combination with a query builder like KnexJS or ORMs like MikroORM to make more efficient calls to our database.
 
 For this we simply pass `false` to the second argument of `resolveFieldMap()`:
 
@@ -125,7 +125,7 @@ Our output will be as follows:
 ["id", "title", "body", "author"]
 ```
 
-Since `author` isn't per se a field we can just `SELECT` from our database, it might make more sense to use the deep field map to filter out fields with subselections as we showed above.
+Since `author` isn't a field we can just `SELECT` from our database, it might make more sense to use the deep field map to filter out fields with subselections as we showed above.
 
 ### Under A Specified Parent
 
