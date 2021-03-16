@@ -1,5 +1,5 @@
 ---
-title: Checking For Fields
+title: Checking For Fields To Do Conditional JOINs
 ---
 
 As we showed in the getting started section of this documentation, the `hasFields()` utility allows us to check if fields under a given path were requested in the query.
