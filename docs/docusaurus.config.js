@@ -43,7 +43,7 @@ module.exports = {
             },
             {
               label: "Recipes",
-              to: "docs/recipes/retrieve-field-map/",
+              to: "docs/recipes/field-maps/",
             },
             {
               label: "Reference",

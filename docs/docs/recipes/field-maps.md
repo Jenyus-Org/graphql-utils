@@ -1,5 +1,5 @@
 ---
-title: Retrieving A Field Map Of The Query
+title: Working With Field Maps
 ---
 
 **Field Maps** are one of the most essential pieces of **GraphQL-Utils**. They are a parsed version of the GraphQL AST simplified to take fragments into account as well as remove the extra data we aren't interested in.
