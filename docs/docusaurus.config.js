@@ -14,7 +14,8 @@ module.exports = {
       title: "GraphQL-Utils",
       logo: {
         alt: "Jenyus Org",
-        src: "img/jenyus_white.svg",
+        src: "img/jenyus.svg",
+        srcDark: "img/jenyus-white.svg",
       },
       items: [
         {
