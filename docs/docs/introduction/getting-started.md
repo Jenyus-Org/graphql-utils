@@ -29,8 +29,8 @@ import { hasFields } from "@jenyus-org/graphql-utils";
 const resolvers = {
   Query: {
     posts(_, __, ___, info) {
-      const requestedUsername = hasFields(info, "posts.author");
-      console.log(requestedUsername);
+      const requestedAuthor = hasFields(info, "posts.author");
+      console.log(requestedAuthor);
     },
   },
 };
