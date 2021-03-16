@@ -271,7 +271,7 @@ This will log the following:
 
 :::tip
 
-The `*.*` wildcard can be useful to get the columns we need to `SELECT` from our database.
+The `*.` wildcard can be useful to get the columns we need to `SELECT` from our database.
 
 :::
 
