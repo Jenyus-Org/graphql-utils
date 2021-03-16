@@ -4,7 +4,7 @@ title: Retrieving A Field Map Of The Query
 
 **Field Maps** are one of the most essential pieces of **GraphQL-Utils**. They are a parsed version of the GraphQL AST simplified to take fragments into account as well as remove the extra data we aren't interested in.
 
-You can read more about the `FieldMap` interface [here](../reference/interfaces.md).
+You can read more about the `FieldMap` interface [here](../reference/interfaces.md#fieldmap).
 
 In order to retrieve the field map we can use the `resolveFieldMap()` helper, which takes `info` as its only required argument, and we may additionally specify whether a deep field map should be parsed, so we can check nested data and calculate the cost of a query, or just a single layer for example to help us optimize our SQL `SELECT` and `JOIN` queries.
 
@@ -164,8 +164,8 @@ Let's change up our query a bit:
 
 Now we can specify the parent under which we want to get our field map from with either of the two syntaxes:
 
- - `"postsOverview.topPosts"`
- - `["postsOverview", "topPosts"]`
+- `"postsOverview.topPosts"`
+- `["postsOverview", "topPosts"]`
 
 The rest of how `resolveFieldMap()` works is identical to the previous examples, we just need to make sure to specify `deep` in the arguments:
 
@@ -199,3 +199,11 @@ This will output the following field map:
   }
 }
 ```
+
+## Usage with KnexJS
+
+🚧 Work in Progress!
+
+## Usage with MikroORM
+
+🚧 Work in Progress!
