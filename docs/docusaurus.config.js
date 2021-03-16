@@ -42,8 +42,8 @@ module.exports = {
               to: "docs/getting-started/",
             },
             {
-              label: "Utilities",
-              to: "docs/utilities/retrieve-field-map/",
+              label: "Recipes",
+              to: "docs/recipes/retrieve-field-map/",
             },
             {
               label: "Reference",

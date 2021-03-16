@@ -14,7 +14,7 @@ In order to resolve a field map, all we need to do is use the `info` argument pa
 
 Let's take a look at an example query:
 
-```gql
+```graphql
 {
   posts {
     id
@@ -133,7 +133,7 @@ If we only want to retrieve the field map under a specified parent, we can use d
 
 Let's change up our query a bit:
 
-```gql
+```graphql
 {
   postsOverview {
     topPosts {
