@@ -8,32 +8,32 @@ import styles from "./styles.module.css";
 
 const features = [
   {
-    title: "Easy to Use",
-    imageUrl: "img/undraw_docusaurus_mountain.svg",
+    title: "Performant",
+    imageUrl: "img/lightning.svg",
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        GraphQL-Utils uses performant recursive and iterative algorithms to
+        evaluate the GraphQL AST.
       </>
     ),
   },
   {
-    title: "Focus on What Matters",
-    imageUrl: "img/undraw_docusaurus_tree.svg",
+    title: "Fully-Featured",
+    imageUrl: "img/innovation.svg",
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        GraphQL-Utils comes with smart helpers out of the box to solve the most
+        common problems with GraphQL using various libraries and ORMs easily.
       </>
     ),
   },
   {
-    title: "Powered by React",
-    imageUrl: "img/undraw_docusaurus_react.svg",
+    title: "Integrations",
+    imageUrl: "img/tools.svg",
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        GraphQL-Utils features an integration for NestJS, with integrations for
+        TypeGraphQL and others on the roadmap.
       </>
     ),
   },
@@ -72,7 +72,7 @@ export default function Home() {
                 "button button--outline button--secondary button--lg",
                 styles.getStarted
               )}
-              to={useBaseUrl("docs/")}
+              to={useBaseUrl("docs/getting-started")}
             >
               Get Started
             </Link>
