@@ -7,6 +7,6 @@ module.exports = {
       "utilities/resolving-selections",
     ],
     Reference: ["reference/field-map"],
-    "Usage with NestJS": ["nestjs/installation"],
+    "Usage with NestJS": ["nestjs/installation", "nestjs/decorators"],
   },
 };

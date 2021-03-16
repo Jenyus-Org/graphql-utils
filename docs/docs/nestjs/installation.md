@@ -1,4 +1,4 @@
 ---
-title: Checking For Fields
+title: Installation
 slug: /nestjs
 ---
