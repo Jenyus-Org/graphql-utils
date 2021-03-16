@@ -10,7 +10,6 @@ module.exports = {
   organizationName: "jenyus-org", // Usually your GitHub org/user name.
   projectName: "graphql-utils", // Usually your repo name.
 
-  plugins: ["@docusaurus/plugin-google-analytics"],
   themeConfig: {
     navbar: {
       title: "GraphQL-Utils",
