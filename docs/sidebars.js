@@ -1,8 +1,12 @@
 module.exports = {
   docsSidebar: {
-    Introduction: ["getting-started"],
-    Utilities: ["doc2"],
-    Reference: ["doc3"],
-    "Usage with NestJS": ["mdx"],
+    Introduction: ["introduction/getting-started"],
+    Utilities: [
+      "utilities/retrieve-field-map",
+      "utilities/checking-for-fields",
+      "utilities/resolving-selections",
+    ],
+    Reference: ["reference/field-map"],
+    "Usage with NestJS": ["nestjs/installation"],
   },
 };

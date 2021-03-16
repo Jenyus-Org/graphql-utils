@@ -37,20 +37,20 @@ module.exports = {
           title: "Docs",
           items: [
             {
-              label: "Installation",
-              to: "docs/",
-            },
-            {
               label: "Getting Started",
-              to: "docs/doc2/",
+              to: "docs/getting-started/",
             },
             {
-              label: "Usage",
-              to: "docs/doc2/",
+              label: "Utilities",
+              to: "docs/resolve-field-map/",
+            },
+            {
+              label: "Reference",
+              to: "docs/field-map/",
             },
             {
               label: "NestJS",
-              to: "docs/doc2/",
+              to: "docs/nestjs/",
             },
           ],
         },
