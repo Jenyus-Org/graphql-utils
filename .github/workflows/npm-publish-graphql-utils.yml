@@ -1,5 +1,5 @@
 name: Deploy package to NPM and GitHub package repository
-'on':
+on:
   push:
     branches:
       - master
