@@ -8,7 +8,7 @@ module.exports = {
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
   organizationName: "jenyus-org", // Usually your GitHub org/user name.
-  projectName: "jenyus-org.github.io", // Usually your repo name.
+  projectName: "graphql-utils", // Usually your repo name.
   themeConfig: {
     navbar: {
       title: "GraphQL-Utils",
