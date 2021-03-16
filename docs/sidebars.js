@@ -6,7 +6,7 @@ module.exports = {
       "recipes/checking-for-fields",
       "recipes/resolving-selections",
     ],
-    Reference: ["reference/field-map"],
+    Reference: ["reference/interfaces", "reference/utilities"],
     "Usage with NestJS": ["nestjs/installation", "nestjs/decorators"],
   },
 };

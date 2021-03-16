@@ -47,7 +47,7 @@ module.exports = {
             },
             {
               label: "Reference",
-              to: "docs/reference/field-map/",
+              to: "docs/reference/interfaces/",
             },
             {
               label: "NestJS",
