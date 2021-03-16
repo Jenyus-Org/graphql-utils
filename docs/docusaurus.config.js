@@ -68,7 +68,12 @@ module.exports = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Jenyus Org. Built with Docusaurus.`,
     },
-    googleAnalytics: {
+    /* googleAnalytics: {
+      trackingID: "G-SGKJKYGQ0E",
+      // Optional fields.
+      anonymizeIP: true, // Should IPs be anonymized?
+    }, */
+    gtag: {
       trackingID: "G-SGKJKYGQ0E",
       // Optional fields.
       anonymizeIP: true, // Should IPs be anonymized?
