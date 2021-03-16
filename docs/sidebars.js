@@ -1,6 +1,6 @@
 module.exports = {
   docsSidebar: {
-    Introduction: ["doc1"],
+    Introduction: ["getting-started"],
     Utilities: ["doc2"],
     Reference: ["doc3"],
     "Usage with NestJS": ["mdx"],
