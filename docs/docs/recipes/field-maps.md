@@ -264,6 +264,6 @@ const resolvers = {
 
 :::note
 
-This is the barebones way of using field maps to get columns and relations to `SELECT` and populate. See [Resolving Selections For Use With ORMs](resolving-selections.md) for a more declarative approach.
+This is the barebones method of using field maps to get columns and relations to `SELECT` and populate. See [Resolving Selections For Use With ORMs](resolving-selections.md) for a more declarative approach.
 
 :::
