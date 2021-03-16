@@ -13,8 +13,8 @@ module.exports = {
     navbar: {
       title: "GraphQL-Utils",
       logo: {
-        alt: "GraphQL-Utils",
-        src: "img/logo.svg",
+        alt: "Jenyus Org",
+        src: "img/jenyus_white.svg",
       },
       items: [
         {
