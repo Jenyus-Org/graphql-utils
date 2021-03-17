@@ -30,6 +30,7 @@
 .sandbox {
   border-radius: 5px;
   overflow: hidden;
+  margin-bottom: var(--ifm-leading);
 }
 
 .codeBlockContainer {
