@@ -41,7 +41,7 @@ class PostsResolver {
   posts(
     @Selections("posts", ["**.**"])
     relations: string[],
-    @Selections("*.") fields: string[]
+    @Selections("posts", ["*."]) fields: string[]
   ) {
     return await this.postsService.findAll({ relations, fields });
   }
