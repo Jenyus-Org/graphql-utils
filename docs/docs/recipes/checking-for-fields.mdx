@@ -119,3 +119,39 @@ const resolvers = {
   },
 };
 ```
+
+## Playground
+
+import { Sandbox } from "../../src/components/sandbox";
+import { hasFields } from "@jenyus-org/graphql-utils";
+
+<Sandbox
+  func={(info) => hasFields(info, "posts.author")}
+  graphql={`
+  {
+    posts {
+      id
+      title
+      body
+      author {
+        id
+        username
+        firstName
+        lastName
+      }
+    }
+  }
+  `}
+  code={`
+  import { hasFields } from "@jenyus-org/graphql-utils";
+  \n
+  const resolvers = {
+    Query: {
+      posts(_, __, ___, info) {
+        const requestedAuthor = hasFields(info, "posts.author");
+        console.log(requestedAuthor);
+      },
+    },
+  };
+`}
+/>
