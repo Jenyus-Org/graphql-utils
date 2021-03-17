@@ -61,7 +61,7 @@ import { resolveSelections } from "@jenyus-org/graphql-utils";
       }
     }
   }
-`}
+  `}
   code={`
   import { Selections } from "@jenyus-org/nestjs-graphql-utils";
   import { Parent, Query, ResolveField, Resolver } from "@nestjs/graphql";
@@ -95,5 +95,5 @@ import { resolveSelections } from "@jenyus-org/graphql-utils";
       return await this.usersService.findOne({ postId: post.id });
     }
   }
-    `}
+  `}
 />

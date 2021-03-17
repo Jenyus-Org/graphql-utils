@@ -17,22 +17,24 @@ import { resolveSelections } from "@jenyus-org/graphql-utils";
       info
     )
   }
-  graphql={`{
-  users {
-    posts
+  graphql={`
+  {
+    users {
+      posts
+    }
   }
-}`}
+  `}
   code={`
-    resolveSelections(
-      [
-        {
-          field: "users",
-          selections: ["posts"],
-        },
-      ],
-      info
-    )
-    `}
+  resolveSelections(
+    [
+      {
+        field: "users",
+        selections: ["posts"],
+      },
+    ],
+    info
+  )
+  `}
 />
 
 I can write **Markdown** alongside my _JSX_!
