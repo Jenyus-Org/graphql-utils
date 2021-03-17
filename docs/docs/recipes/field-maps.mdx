@@ -264,6 +264,42 @@ const resolvers = {
 
 :::note
 
-This is the barebones method of using field maps to get columns and relations to `SELECT` and populate. See [Resolving Selections For Use With ORMs](resolving-selections.md) for a more declarative approach.
+This is the barebones method of using field maps to get columns and relations to `SELECT` and populate. See [Resolving Selections For Use With ORMs](resolving-selections.mdx) for a more declarative approach.
 
 :::
+
+## Playground
+
+import { Sandbox } from "../../src/components/sandbox";
+import { resolveFieldMap } from "@jenyus-org/graphql-utils";
+
+<Sandbox
+  func={(info) => resolveFieldMap(info)}
+  graphql={`
+  {
+    posts {
+      id
+      title
+      body
+      author {
+        id
+        username
+        firstName
+        lastName
+      }
+    }
+  }
+  `}
+  code={`
+  import { resolveFieldMap } from "@jenyus-org/graphql-utils";
+  \n
+  const resolvers = {
+    Query: {
+      posts(_, __, ___, info) {
+        const fieldMap = resolveFieldMap(info);
+        console.log(fieldMap);
+      },
+    },
+  };
+`}
+/>

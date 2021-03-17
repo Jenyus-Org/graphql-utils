@@ -59,7 +59,7 @@ export default function Home() {
   const { siteConfig = {} } = context;
   return (
     <Layout
-      title={`Supercharge your GraphQL APIs`}
+      title="Supercharge your GraphQL APIs"
       description="GraphQL-Utils is a library designed to make working with GraphQL APIs easier."
     >
       <header className={clsx("hero hero--primary", styles.heroBanner)}>

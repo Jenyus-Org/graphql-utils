@@ -1,0 +1,38 @@
+---
+title: Playground
+---
+
+import { Sandbox } from "../src/components/sandbox";
+import { resolveSelections } from "@jenyus-org/graphql-utils";
+
+<Sandbox
+  func={(info) =>
+    resolveSelections(
+      [
+        {
+          field: "users",
+          selections: ["posts"],
+        },
+      ],
+      info
+    )
+  }
+  graphql={`{
+  users {
+    posts
+  }
+}`}
+  code={`
+    resolveSelections(
+      [
+        {
+          field: "users",
+          selections: ["posts"],
+        },
+      ],
+      info
+    )
+    `}
+/>
+
+I can write **Markdown** alongside my _JSX_!

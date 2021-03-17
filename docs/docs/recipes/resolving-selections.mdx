@@ -316,3 +316,55 @@ const resolvers = {
 You can read more about the MikrORM `EntityManager`/`EntityRepository` `populate` and `fields` options in their [docs](https://mikro-orm.io/docs/entity-manager-api).
 
 :::
+
+## Playground
+
+import { Sandbox } from "../../src/components/sandbox";
+import { resolveSelections } from "@jenyus-org/graphql-utils";
+
+<Sandbox
+  func={(info) => {
+    const fields = [
+      {
+        field: "posts",
+        selections: ["*.", "**.**"],
+      },
+    ];
+    return resolveSelections(fields, info);
+  }}
+  graphql={`
+  {
+    posts {
+      id
+      title
+      body
+      author {
+        id
+        username
+        firstName
+        lastName
+      }
+    }
+  }
+  `}
+  code={`
+  import { resolveSelections, FieldSelections } from "@jenyus-org/graphql-utils";
+  \n
+  const resolvers = {
+    Query: {
+      posts(_, __, ___, info) {
+        const fields: FieldSelections[] = [
+          {
+            field: "posts",
+            selections: ["*.", "**.**"],
+          },
+        ];
+        \n
+        const selections = resolveSelections(fields, info);
+        \n
+        console.log(selections);
+      },
+    },
+};
+`}
+/>

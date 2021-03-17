@@ -23,36 +23,45 @@ $ yarn add @jenyus-org/graphql-utils
 
 One of the most straightforward and common use-cases of GraphQL-Utils is checking if a query contains a certain path. We can do this using the `hasFields()` utility:
 
-```ts
+import { Sandbox } from "../../src/components/sandbox";
 import { hasFields } from "@jenyus-org/graphql-utils";
 
-const resolvers = {
-  Query: {
-    posts(_, __, ___, info) {
-      const requestedAuthor = hasFields(info, "posts.author");
-      console.log(requestedAuthor);
-    },
-  },
-};
-```
-
-Given the following query, this will output `true` to the console:
-
-```graphql
-{
-  posts {
-    id
-    title
-    body
-    author {
+<Sandbox
+  func={(info) => hasFields(info, "posts.author")}
+  graphql={`
+  {
+    posts {
       id
-      username
-      firstName
-      lastName
+      title
+      body
+      author {
+        id
+        username
+        firstName
+        lastName
+      }
     }
   }
-}
-```
+  `}
+  code={`
+  import { hasFields } from "@jenyus-org/graphql-utils";
+  \n
+  const resolvers = {
+    Query: {
+      posts(_, __, ___, info) {
+        const requestedAuthor = hasFields(info, "posts.author");
+        console.log(requestedAuthor);
+      },
+    },
+  };
+`}
+/>
+
+:::tip
+
+You can edit the query in the editor above to get a feel for how GraphQL-Utils works.
+
+:::
 
 Using this technique, we can, for example, conditionally `JOIN` our post authors only when requested using a query builder like KnexJS or ORMs such as MikroORM.
 
