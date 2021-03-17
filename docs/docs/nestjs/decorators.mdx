@@ -108,7 +108,7 @@ Instead of returning a `FieldMap` result, it returns a `string[]` which are a li
 
 ## `@HasFields(...fields: (string | string[])[]): boolean`
 
-`@HasFields()` uses the received `GraphQLResolveInfo` from the incoming request, to run [`hasFields`](../reference/utilities.md#hasfieldsinfo-graphqlresolveinfo-search-string--string-atroot-boolean--false-boolean) for every argument passed. Just like `hasFields` it supports array syntax and dot notation, and uses AND bitwise operations ensuring that every field passed resolves to `true`.
+`@HasFields()` uses the received `GraphQLResolveInfo` from the incoming request, to run [`hasFields`](../reference/utilities.mdx#hasfieldsinfo-graphqlresolveinfo-search-string--string-atroot-boolean--false-boolean) for every argument passed. Just like `hasFields` it supports array syntax and dot notation, and uses AND bitwise operations ensuring that every field passed resolves to `true`.
 
 <Sandbox
   func={(info) => hasFields(info, "posts.id")}
@@ -145,7 +145,7 @@ Instead of returning a `FieldMap` result, it returns a `string[]` which are a li
 
 **Updated in v1.6.0**
 
-Similar to `@HasFields()`, `@Selections` acts as a layer on top of [`resolveSelections`](../reference/utilities.md#resolveselectionsfields-string--fieldselections-info-graphqlresolveinfo-string), and additionally contains some logic to solve the most common use-case.
+Similar to `@HasFields()`, `@Selections` acts as a layer on top of [`resolveSelections`](../reference/utilities.mdx#resolveselectionsfields-string--fieldselections-info-graphqlresolveinfo-string), and additionally contains some logic to solve the most common use-case.
 
 `fieldSelections` can be the same type of argument as accepted by `resolveSelections`, and will return an array of selectors which were found in the query.
 
