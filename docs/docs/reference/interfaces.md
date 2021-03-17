@@ -2,6 +2,8 @@
 title: Interfaces
 ---
 
+Overview of the interfaces built into the `@jenyus-org/graphql-utils` package.
+
 ## `FieldMap`
 
 ```ts
