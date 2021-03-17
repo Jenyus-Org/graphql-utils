@@ -14,7 +14,7 @@ It currently consists of two packages:
 
 ## Documentation
 
-The full documentation can be found [here](https://jenyus-org.github.io/graphql-utils/).
+The full documentation with live code sandboxes can be found [here](https://jenyus-org.github.io/graphql-utils/).
 
 ## Installation
 
