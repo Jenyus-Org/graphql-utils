@@ -26,8 +26,13 @@ module.exports = {
           position: "left",
         },
         {
-          href: "https://github.com/jenyus-org/graphql-utils",
+          href: "https://github.com/jenyus-org/graphql-utils/",
           label: "GitHub",
+          position: "right",
+        },
+        {
+          href: "http://jenyus.web.app/",
+          label: "Jenyus",
           position: "right",
         },
       ],
@@ -61,7 +66,11 @@ module.exports = {
           items: [
             {
               label: "GitHub",
-              href: "https://github.com/jenyus-org/graphql-utils",
+              href: "https://github.com/jenyus-org/graphql-utils/",
+            },
+            {
+              label: "Jenyus",
+              href: "http://jenyus.web.app/",
             },
           ],
         },
