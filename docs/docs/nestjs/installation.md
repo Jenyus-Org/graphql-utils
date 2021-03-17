@@ -19,7 +19,7 @@ $ yarn add @jenyus-org/nestjs-graphql-utils
 
 ## Usage
 
-The most intuitive way to use the NestJS package is with the `@Selections()` decorator. It supports the same options as [`resolveSelections()`](../recipes/resolving-selections.md) and also a shorthand, where the first parameter is the parent field, and the second is an array of selections:
+The most intuitive way to use the NestJS package is with the `@Selections()` decorator. It supports the same options as [`resolveSelections()`](../recipes/resolving-selections.mdx) and also a shorthand, where the first parameter is the parent field, and the second is an array of selections:
 
 ```ts
 import { Selections } from "@jenyus-org/nestjs-graphql-utils";
