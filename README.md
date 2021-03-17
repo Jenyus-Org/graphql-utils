@@ -5,6 +5,11 @@
 ![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Jenyus-Org/graphql-utils)
 ![GitHub Stars](https://img.shields.io/github/stars/Jenyus-Org/graphql-utils?style=social)
 
+- [graphql-utils](#graphql-utils)
+  - [Documentation](#documentation)
+  - [Installation](#installation)
+  - [License](#license)
+
 `graphql-utils` is a set of NPM packages with utilities for GraphQL.js based projects to aid in implementing complex APIs and working with the GraphQL AST.
 
 It currently consists of two packages:
@@ -21,10 +26,6 @@ The full documentation with live code sandboxes can be found [here](https://jeny
 The packages can be installed via the `npm` and Yarn package managers. It's as easy as running `npm i @jenyus-org/<package-name>` or `yarn add @jenyus-org/<package-name>`.
 
 For more information see the individual package folders and their respective READMEs.
-
-## Roadmap
-
- - [ ] More utilities.
 
 ## License
 
