@@ -2,6 +2,9 @@
 title: Utilities
 ---
 
+import { Sandbox } from "../../src/components/sandbox";
+import { hasFields, resolveSelections } from "@jenyus-org/graphql-utils";
+
 Overview of the utilities provided by the `@jenyus-org/graphql-utils` package.
 
 ## `fieldMapToDot (fieldMap: FieldMap): string[]`
@@ -29,12 +32,7 @@ console.log(dot);
 **Output:**
 
 ```ts
-[
-  "user",
-  "user.tasks",
-  "user.activities",
-  "user.activities.task",
-]
+["user", "user.tasks", "user.activities", "user.activities.task"];
 ```
 
 ## `getFieldMap (fieldMap: FieldMap, parent: string | string[]): FieldMap`
@@ -55,34 +53,44 @@ Given the `GraphQLResolveInfo`, `getFieldNode` will retrieve the `FieldNode` at 
 
 Provided the `GraphQLResolveInfo` from a given query, `hasFields` will recursively scan through the field selections, including GraphQL fragments for a subselection of fields given to `search`. It supports dot notation as well as an array structure for the search.
 
-Given the following query:
+The `atRoot` parameter allows users to specify whether the utility should only check for fields at the root level, or also go deeper down the tree in order to find the fields. It is recommended to have this enabled in general, but may be useful to disable at times.
 
-```gql
-{
-  user {
-    username
+<Sandbox
+  funcs={[
+    (info) => hasFields(info, "posts.author"),
+    (info) => hasFields(info, ["posts", "author"]),
+    (info) => hasFields(info, "author", false),
+  ]}
+  graphql={`
+  {
     posts {
+      id
       title
       body
-      createdAt
+      author {
+        id
+        username
+        firstName
+        lastName
+      }
     }
   }
-}
-```
-
-`hasFields` can be used to check whether the query includes a subselection of fields. If you wanted to check whether posts were requested, it's as simple as running the following:
-
-```ts
-const requestedPosts = hasFields("user.posts", info);  // GraphQLResolveInfo provided by resolver function args
-```
-
-Alternatively, an array of fields may be used for better readability:
-
-```ts
-const requestedPosts = hasFields(["user", "posts"], info);  // GraphQLResolveInfo provided by resolver function args
-```
-
-The `atRoot` parameter allows users to specify whether the utility should only check for fields at the root level, or also go deeper down the tree in order to find the fields. It is recommended to have this enabled in general, but may be useful to disable at times.
+  `}
+  code={`
+  import { hasFields } from "@jenyus-org/graphql-utils";
+  \n
+  const resolvers = {
+    Query: {
+      posts(_, __, ___, info) {
+        const requestedAuthor = hasFields(info, "posts.author");
+        const requestedAuthor = hasFields(info, ["posts", "author"]);
+        const requestedAuthor = hasFields(info, "author", false);
+        console.log(requestedAuthor);
+      },
+    },
+  };
+  `}
+/>
 
 ## `resolveFieldMap(info: Pick<GraphQLResolveInfo, "fieldNodes" | "fragments">, deep: boolean = true, parent: string | string[] = ""): FieldMap`
 
@@ -104,53 +112,90 @@ Similar to `resolveFieldMap`, `resolveFields` will return either flat or deep fi
 
 `resolveSelections` takes as its first argument, a deeply nested list of fields to recursively search through, and add to its final return array of selections made in the actual query. For more details on the structure of `FieldSelections`, see the section below. Just like `hasFields` it also expects to be passed the `GraphQLResolveInfo` from the query made.
 
-Using a slightly extended version of the example query above:
-
-```gql
-{
-  user {
-    username
-    posts {
-      title
-      body
-      createdAt
-    }
-    profile {
-      img
-      description
-      slug
-    }
-  }
-}
-```
-
-`resolveSelections` can be used in this example to retrieve all the relations that were actually requested in the query, which can then be passed on to the query builder, or ORM like so:
-
-```ts
-const fields: FieldSelection[] = [
-  {
-    field: "user",
-    selections: [
+<Sandbox
+  func={(info) => {
+    const fields = [
       {
         field: "posts",
-        selector: "user.posts",
+        selections: [
+          {
+            field: "author",
+            selector: "posts.author",
+          },
+          {
+            field: "comments",
+            selector: "posts.comments",
+            selections: [
+              {
+                field: "author",
+                selector: "posts.comments.author",
+              },
+            ],
+          },
+        ],
       },
-      {
-        field: "profile",
-        selector: "user.profile",
+    ];
+    return resolveSelections(fields, info);
+  }}
+  graphql={`
+  {
+    posts {
+      id
+      title
+      body
+      author {
+        id
+        username
+        firstName
+        lastName
       }
-    ],
+      comments {
+        id
+        body
+        author {
+          id
+          username
+          firstName
+          lastName
+        }
+      }
+    }
   }
-]
-
-const relations = resolveSelections(fields, info);  // GraphQLResolveInfo provided by resolver function args
-```
-
-The output will be the following:
-
-```ts
-["user.posts", "user.profile"]
-```
+  `}
+  code={`
+  import { resolveSelections } from "@jenyus-org/graphql-utils";
+  \n
+  const resolvers = {
+    Query: {
+      posts(_, __, ___, info) {
+        const fields: FieldSelection[] = [
+          {
+            field: "posts",
+            selections: [
+              {
+                field: "author",
+                selector: "posts.author",
+              },
+              {
+                field: "comments",
+                selector: "posts.comments",
+                selections: [
+                  {
+                    field: "author",
+                    selector: "posts.comments.author",
+                  }
+                ],
+              },
+            ],
+          },
+        ];
+        const relations = resolveSelections(fields, info);
+        console.log(relations);
+      },
+    },
+  };
+  `}
+/>
 
 As `fields` can be represented by both objects and strings, they will be handled differently depending on their type. Using the object syntax `resolveSelections` will ensure the existence of the field, and if a `selector` value is present, it will be added to the accumulation of selections.
 
