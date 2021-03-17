@@ -46,7 +46,7 @@ export const Sandbox = ({ graphql, func, funcs = [], code }) => {
   const results = React.useMemo(
     () =>
       resolveInfo
-        ? [...funcs, func].map((f) => f && f(resolveInfo)).filter((r) => r)
+        ? [...funcs, func].filter((f) => f).map((f) => f && f(resolveInfo))
         : null,
     [func, resolveInfo]
   );
