@@ -87,7 +87,6 @@ export const Sandbox = ({ graphql, func, funcs = [], code }) => {
           ))}
         </div>
       )}
-      <br />
     </div>
   );
 };
