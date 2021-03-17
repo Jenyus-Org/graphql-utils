@@ -45,9 +45,16 @@ export const Sandbox = ({ graphql, func, funcs = [], code }) => {
 
   const results = React.useMemo(
     () =>
-      resolveInfo
-        ? [...funcs, func].filter((f) => f).map((f) => f(resolveInfo))
-        : null,
+      resolveInfo &&
+      [...funcs, func]
+        .filter((f) => f)
+        .map((f) => {
+          try {
+            return f(resolveInfo);
+          } catch (e) {
+            console.error(e);
+          }
+        }),
     [func, resolveInfo]
   );
 
@@ -73,20 +80,24 @@ export const Sandbox = ({ graphql, func, funcs = [], code }) => {
         <p className={styles.header}>Code</p>
         <CodeBlock className="ts">{trimmedCode}</CodeBlock>
       </div>
-      {results.length && (
-        <div>
-          <p className={styles.outputHeader}>Output</p>
-          {results.map((result, idx) => (
+      <div>
+        <p className={styles.outputHeader}>Output</p>
+        {results ? (
+          results.map((result, idx) => (
             <div className={styles.codeBlockContainer} key={idx}>
               <CodeBlock className="json">
-                {result !== null
+                {result !== undefined
                   ? JSON.stringify(result, null, Array.isArray(result) ? 0 : 2)
                   : "Invalid GraphQL query"}
               </CodeBlock>
             </div>
-          ))}
-        </div>
-      )}
+          ))
+        ) : (
+          <div className={styles.codeBlockContainer}>
+            <CodeBlock>Invalid GraphQL query</CodeBlock>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
