@@ -25,7 +25,7 @@ const trimWhitespace = (str) => {
   return str;
 };
 
-export const Sandbox = ({ graphql, func, code }) => {
+export const Sandbox = ({ graphql, func, funcs, code }) => {
   const prismTheme = usePrismTheme();
 
   const trimmedCode = React.useMemo(() => trimWhitespace(code), [
@@ -43,8 +43,11 @@ export const Sandbox = ({ graphql, func, code }) => {
     }
   }, [editorState]);
 
-  const result = React.useMemo(
-    () => (func && resolveInfo ? func(resolveInfo) : null),
+  const results = React.useMemo(
+    () =>
+      resolveInfo
+        ? [...funcs, func].map((f) => f && f(resolveInfo)).filter((r) => r)
+        : null,
     [func, resolveInfo]
   );
 
@@ -70,14 +73,18 @@ export const Sandbox = ({ graphql, func, code }) => {
         <p className={styles.header}>Code</p>
         <CodeBlock className="ts">{trimmedCode}</CodeBlock>
       </div>
-      {result !== undefined && (
+      {results.length && (
         <div>
           <p className={styles.outputHeader}>Output</p>
-          <CodeBlock className="json">
-            {result !== null
-              ? JSON.stringify(result, null, 2)
-              : "Invalid GraphQL query"}
-          </CodeBlock>
+          {results.map((result, idx) => (
+            <div className={styles.codeBlockContainer} key={idx}>
+              <CodeBlock className="json">
+                {result !== null
+                  ? JSON.stringify(result, null)
+                  : "Invalid GraphQL query"}
+              </CodeBlock>
+            </div>
+          ))}
         </div>
       )}
       <br />

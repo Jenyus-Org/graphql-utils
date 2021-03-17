@@ -25,17 +25,28 @@ import { Sandbox } from "../../src/components/sandbox";
 import { resolveSelections } from "@jenyus-org/graphql-utils";
 
 <Sandbox
-  func={(info) =>
-    resolveSelections(
-      [
-        {
-          field: "posts",
-          selections: ["**.**", "*."],
-        },
-      ],
-      info
-    )
-  }
+  funcs={[
+    (info) =>
+      resolveSelections(
+        [
+          {
+            field: "posts",
+            selections: ["**.**"],
+          },
+        ],
+        info
+      ),
+    (info) =>
+      resolveSelections(
+        [
+          {
+            field: "posts",
+            selections: ["*."],
+          },
+        ],
+        info
+      ),
+  ]}
   graphql={`
   {
     posts {

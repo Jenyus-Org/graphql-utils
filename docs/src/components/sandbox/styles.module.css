@@ -34,4 +34,6 @@
 
 .codeBlockContainer {
   margin-bottom: calc(var(--ifm-leading) * -1);
+  background-color: rgb(41, 45, 62);
+  /* border-radius: var(--ifm-global-radius); */
 }
