@@ -10,6 +10,7 @@
 - [nestjs-graphql-utils](#nestjs-graphql-utils)
   - [Documentation](#documentation)
   - [Installation](#installation)
+  - [Getting Started](#getting-started)
 
 ## Documentation
 
@@ -32,3 +33,42 @@ yarn add @jenyus-org/nestjs-graphql-utils
 ```
 
 This will install `@jenyus-org/nestjs-graphql-utils` and all its dependencies.
+
+## Getting Started
+
+Typically, you will want to use the NestJS GraphQL-Utils package and its decorators to optimize your SQL `SELECT` and `JOIN` statements. You can use the `@Selections()` decorator and [wildcards](https://jenyus-org.github.io/graphql-utils/docs/recipes/resolving-selections) to get the precise fields and relations to populate:
+
+```ts
+import { Selections } from "@jenyus-org/nestjs-graphql-utils";
+import { Parent, Query, ResolveField, Resolver } from "@nestjs/graphql";
+import { UserObject } from "../users/dto/user.object";
+import { UsersService } from "../users/users.service";
+import { PostObject } from "./dto/post.object";
+import { Post } from "./entities/post.entity";
+import { PostsService } from "./posts.service";
+
+@Resolver(() => PostObject)
+class PostsResolver {
+  constructor(
+    private postsService: PostsService,
+    private usersService: UsersService
+  ) {}
+
+  @Query(() => [PostObject])
+  posts(
+    @Selections("posts", ["**.**"])
+    relations: string[],
+    @Selections("posts", ["*."]) fields: string[]
+  ) {
+    return await this.postsService.findAll({ relations, fields });
+  }
+
+  @ResolveField(() => UserObject)
+  async author(@Parent() post: Post) {
+    if (post.author) {
+      return post.author;
+    }
+    return await this.usersService.findOne({ postId: post.id });
+  }
+}
+```

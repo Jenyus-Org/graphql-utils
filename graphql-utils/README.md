@@ -9,6 +9,7 @@
 - [graphql-utils](#graphql-utils)
   - [Documentation](#documentation)
   - [Installation](#installation)
+  - [Getting Started](#getting-started)
 
 ## Documentation
 
@@ -31,3 +32,38 @@ yarn add @jenyus-org/graphql-utils
 ```
 
 This will install `@jenyus-org/graphql-utils` and all its dependencies.
+
+## Getting Started
+
+One of the most straightforward and common use-cases of GraphQL-Utils is checking if a query contains a certain path. We can do this using the `hasFields()` utility:
+
+```ts
+import { hasFields } from "@jenyus-org/graphql-utils";
+
+const resolvers = {
+  Query: {
+    posts(_, __, ___, info) {
+      const requestedAuthor = hasFields(info, "posts.author");
+      console.log(requestedAuthor);
+    },
+  },
+};
+```
+
+This will output `true` for the following query:
+
+```graphql
+{
+  posts {
+    id
+    title
+    body
+    author {
+      id
+      username
+      firstName
+      lastName
+    }
+  }
+}
+```
