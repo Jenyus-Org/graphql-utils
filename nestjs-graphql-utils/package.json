@@ -1,6 +1,6 @@
 {
   "name": "@jenyus-org/nestjs-graphql-utils",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "NestJS utilities and decorators built around @jenyus-org/graphql-utils.",
   "main": "dist/index.js",
   "contributors": [
@@ -14,6 +14,7 @@
     "ast",
     "nestjs"
   ],
+  "homepage": "https://jenyus-org.github.io/graphql-utils/",
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build",
