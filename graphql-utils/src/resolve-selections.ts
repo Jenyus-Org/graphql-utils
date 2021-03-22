@@ -1,6 +1,6 @@
 import { GraphQLResolveInfo } from "graphql";
 import { getFieldMap } from "./get-field-map";
-import { fieldMapToDot, FieldSelections } from "./helpers";
+import { fieldMapToDot, FieldSelections } from "./helpers/helpers";
 import { resolveFieldMap } from "./resolve-field-map";
 
 export const resolveSelections = (

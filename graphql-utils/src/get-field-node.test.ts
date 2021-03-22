@@ -2,7 +2,7 @@ import { expect } from "chai";
 import { FieldNode } from "graphql";
 import { describe } from "mocha";
 import { getFieldNode } from "./get-field-node";
-import { getGraphQLResolveInfo } from "./helpers";
+import { getGraphQLResolveInfo } from "./helpers/helpers";
 
 describe("Retrieving field nodes from a selected path", () => {
   it("Must work with multiple similar paths", () => {

@@ -1,6 +1,6 @@
 import { GraphQLResolveInfo, SelectionNode } from "graphql";
 import { getFieldNode } from "./get-field-node";
-import { FieldMap, FragmentDict } from "./helpers";
+import { FieldMap, FragmentDict } from "./helpers/helpers";
 
 export const resolveFieldMap = (
   info: Pick<GraphQLResolveInfo, "fieldNodes" | "fragments">,

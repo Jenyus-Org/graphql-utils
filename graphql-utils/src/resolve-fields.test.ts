@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { describe } from "mocha";
-import { getGraphQLResolveInfo } from "./helpers";
+import { getGraphQLResolveInfo } from "./helpers/helpers";
 import { resolveFields } from "./resolve-fields";
 
 describe("Resolving selectors from GraphQL query fields", () => {

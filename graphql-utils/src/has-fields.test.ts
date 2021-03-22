@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { describe } from "mocha";
 import { hasFields } from "./has-fields";
-import { getGraphQLResolveInfo } from "./helpers";
+import { getGraphQLResolveInfo } from "./helpers/helpers";
 
 describe("Checking if a field exists in a given query", () => {
   it("Must work for deeply nested selectors", () => {

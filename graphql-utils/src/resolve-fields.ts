@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from "graphql";
-import { fieldMapToDot } from "./helpers";
+import { fieldMapToDot } from "./helpers/helpers";
 import { resolveFieldMap } from "./resolve-field-map";
 
 export const resolveFields = (
