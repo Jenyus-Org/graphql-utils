@@ -18,11 +18,14 @@ import { resolveFields } from "./resolve-fields";
  * @param info GraphQLResolveInfo often provided by the GraphQL library itself, can be constructed using graphql/parse.
  * @returns `true` if the fields were located in the query as directly nested selectors, otherwise `false`.
  */
-export const hasFields = (
+export const hasFields = <
+  T extends { [key: string]: any },
+  PFX extends string = ""
+>(
   info: Pick<GraphQLResolveInfo, "fieldNodes" | "fragments">,
-  search: string | string[],
+  search: KeyMap<T, never, ".", PFX, 15> | string[],
   atRoot: boolean = true
-) => {
+): boolean => {
   const field = Array.isArray(search) ? search.join(".") : search;
   const fields = resolveFields(info);
 
