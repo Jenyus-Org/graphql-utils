@@ -12,12 +12,17 @@ export const getFieldNode = (
     const currentNodes = [...selectionNodes];
     selectionNodes = [];
 
-    let field = fields[0];
-    fields.shift();
-    
+    const field = fields[0];
+
+    let found = false;
+    let fragmentFound = false;
     for (const selectionNode of currentNodes) {
       if (selectionNode.kind === "Field") {
         if (selectionNode.name.value === field) {
+          if (!found) {
+            found = true;
+            fields.shift();
+          }
           if (!fields.length) {
             return selectionNode;
           }
@@ -29,12 +34,23 @@ export const getFieldNode = (
           }
         }
       } else if (selectionNode.kind === "FragmentSpread") {
+        fragmentFound = true;
         const fragment = fragments[selectionNode.name.value];
         selectionNodes = [
           ...selectionNodes,
           ...fragment.selectionSet.selections,
         ];
+      } else {
+        fragmentFound = true;
+        selectionNodes = [
+          ...selectionNodes,
+          ...selectionNode.selectionSet.selections,
+        ];
       }
+    }
+
+    if (!found && !fragmentFound) {
+      return;
     }
   }
 };

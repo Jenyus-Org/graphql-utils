@@ -47,6 +47,13 @@ const resolveFieldMapRecursively = (
         fragments,
         fieldMap
       );
+    } else {
+      fieldMap = resolveFieldMapRecursively(
+        [...selectionNode.selectionSet.selections],
+        deep,
+        fragments,
+        fieldMap
+      );
     }
   }
 

@@ -8,10 +8,10 @@ describe("Retrieving field nodes from a selected path", () => {
   it("Must work with multiple similar paths", () => {
     const info = getGraphQLResolveInfo(`{
       user {
-        profile {
+        profileOne: profile {
           slug
         }
-        profile {
+        profileTwo: profile {
           img {
             src
           }
@@ -45,5 +45,30 @@ describe("Retrieving field nodes from a selected path", () => {
     const fieldNode = getFieldNode(info, "user.profile.icon");
 
     expect(fieldNode).to.be.undefined;
+  });
+
+  it("Must work for inline fragment selections", () => {
+    const info = getGraphQLResolveInfo(`{
+      user {
+        ... on User {
+          profile {
+            imgs {
+              icon {
+                src
+              }
+            }
+          }
+        }
+      }
+    }`);
+
+    const fieldNode = getFieldNode(info, "user.profile.imgs.icon");
+
+    expect(fieldNode.kind).to.equal("Field");
+    expect(fieldNode.selectionSet.kind).to.equal("SelectionSet");
+    expect(fieldNode.selectionSet.selections[0].kind).to.equal("Field");
+    expect(
+      (fieldNode.selectionSet.selections[0] as FieldNode).name.value
+    ).to.equal("src");
   });
 });
