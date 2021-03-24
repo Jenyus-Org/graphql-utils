@@ -3,8 +3,8 @@ import { GqlExecutionContext } from "@nestjs/graphql";
 import { FieldSelections, resolveSelections } from "@jenyus-org/graphql-utils";
 
 export const Selections = (
-  fieldSelections: string | string[] | FieldSelections[],
-  fields?: string[],
+  fieldSelections: string | (string | FieldSelections)[],
+  fields?: (string | FieldSelections)[],
   withParent: boolean = false
 ) => {
   if (typeof fieldSelections === "string" && !fields) {
@@ -15,8 +15,8 @@ export const Selections = (
 
   return createParamDecorator<
     {
-      fieldSelections: string | string[] | FieldSelections[];
-      fields?: string[];
+      fieldSelections: string | (string | FieldSelections)[];
+      fields?: (string | FieldSelections)[];
       withParent: boolean;
     },
     ExecutionContext,
@@ -31,13 +31,17 @@ export const Selections = (
           {
             field: fieldSelections,
             selections: withParent
-              ? fields.map((f) => ({
-                  field: f,
-                  selector: [
-                    ...fieldSelections.split("."),
-                    ...f.split("."),
-                  ].join("."),
-                }))
+              ? fields.map((f) =>
+                  typeof f === "string"
+                    ? {
+                        field: f,
+                        selector: [
+                          ...fieldSelections.split("."),
+                          ...f.split("."),
+                        ].join("."),
+                      }
+                    : f
+                )
               : fields,
           },
         ],

@@ -24,11 +24,36 @@ describe("Resolving selectors from GraphQL query fields", () => {
       ctx
     );
 
-    const expectedSelections = [
-      "username",
-      "firstName",
-      "lastName",
-    ];
+    const expectedSelections = ["username", "firstName", "lastName"];
+
+    expect(resolvedSelections).to.have.length(expectedSelections.length);
+    expect(resolvedSelections).to.have.members(expectedSelections);
+  });
+
+  it("Must work with mixed strings and FieldSelections", () => {
+    const ctx = getGqlExecutionContext(`{
+      user {
+        username
+        firstName
+        lastName
+      }
+    }`);
+
+    const selections = getParamDecoratorFactory(Selections);
+
+    const resolvedSelections = selections(
+      {
+        fieldSelections: "user",
+        fields: [
+          "username",
+          "firstName",
+          { field: "lastName", selector: "user.lastName" },
+        ],
+      },
+      ctx
+    );
+
+    const expectedSelections = ["username", "firstName", "user.lastName"];
 
     expect(resolvedSelections).to.have.length(expectedSelections.length);
     expect(resolvedSelections).to.have.members(expectedSelections);
