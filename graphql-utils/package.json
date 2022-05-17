@@ -1,6 +1,6 @@
 {
   "name": "@jenyus-org/graphql-utils",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "GraphQL utilities to make working with GraphQL queries and APIs simpler.",
   "main": "dist/index.js",
   "contributors": [
@@ -24,13 +24,13 @@
   "private": false,
   "types": "dist/index.d.ts",
   "dependencies": {
-    "graphql": "^15.5.0"
+    "graphql": ">=16"
   },
   "devDependencies": {
     "@types/chai": "^4.2.15",
-    "@types/mocha": "^8.2.0",
+    "@types/mocha": "^9.1.1",
     "chai": "^4.3.0",
-    "mocha": "^8.2.1",
+    "mocha": "^9.2.2",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.4"
   }
